@@ -310,3 +310,33 @@ type ThreadListJoinedPrivateArchivedResponse struct {
 	Members []ThreadMember `json:"members"`
 	HasMore bool           `json:"has_more"`
 }
+
+type GuildChannelListRequest struct {
+	GuildID Snowflake `json:"guild_id"`
+}
+
+type GuildChannelListResponse = []Channel
+
+type GuildChannelCreateRequest struct{} // TODO
+
+type GuildChannelCreateResponse = Channel
+
+type GuildChannelModifyPositionsRequest = []GuildChannelModifyPositionsEntry
+
+type GuildChannelModifyPositionsEntry struct {
+	ID              Snowflake           `json:"id"`
+	Position        Optional[int]       `json:"position"`
+	LockPermissions Optional[bool]      `json:"lock_permissions"`
+	ParentID        Optional[Snowflake] `json:"parent_id"`
+}
+
+type GuildChannelModifyPositionsResponse struct{}
+
+type GuildThreadListActiveRequest struct {
+	GuildID Snowflake `json:"guild_id"`
+}
+
+type GuildThreadListActiveResponse struct {
+	Threads []Channel      `json:"threads"`
+	Members []ThreadMember `json:"members"`
+}
