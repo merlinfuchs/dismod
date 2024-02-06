@@ -145,7 +145,7 @@ type ThreadUpdateEvent = Channel
 
 type ThreadDeleteEvent = Channel
 
-type ListSyncEvent struct {
+type ThreadListSyncEvent struct {
 	GuildID    Snowflake      `json:"guild_id"`
 	ChannelIDs []Snowflake    `json:"channel_ids,omitempty"`
 	Threads    []Channel      `json:"threads"`
@@ -162,8 +162,151 @@ type ThreadMembersUpdateEvent struct {
 	RemovedMemberIDs []Snowflake    `json:"removed_member_ids,omitempty"`
 }
 
-type ChannePinsUpdateEvent struct {
+type ChannelPinsUpdateEvent struct {
 	GuildID          Optional[Snowflake] `json:"guild_id,omitempty"`
 	ChannelID        Snowflake           `json:"channel_id"`
 	LastPinTimestamp Optional[time.Time] `json:"last_pin_timestamp,omitempty"`
+}
+
+type ChannelGetRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+}
+
+type ChannelGetResponse = Channel
+
+type ChannelModifyRequest struct{} // TODO
+
+type ChannelModifyResponse = Channel
+
+type ChannelDeleteRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+}
+
+type ChannelDeleteResponse = Channel
+
+type ChannelEditPermissionsRequest struct {
+	ChannelID   Snowflake                  `json:"channel_id"`
+	OverwriteID Snowflake                  `json:"overwrite_id"`
+	Allow       Optional[Nullable[string]] `json:"allow,omitempty"`
+	Deny        Optional[Nullable[string]] `json:"deny,omitempty"`
+	Type        PermissionOverwriteType    `json:"type,omitempty"`
+}
+
+type ChannelEditPermissionsResponse struct{}
+
+type ChannelDeletePermissionsRequest struct {
+	ChannelID   Snowflake `json:"channel_id"`
+	OverwriteID Snowflake `json:"overwrite_id"`
+}
+
+type ChannelDeletePermissionsResponse struct{}
+
+type ThreadStartFromMessageRequest struct {
+	ChannelID           Snowflake           `json:"channel_id"`
+	MessageID           Snowflake           `json:"message_id"`
+	Name                string              `json:"name"`
+	AutoArchiveDuration Optional[time.Time] `json:"auto_archive_duration,omitempty"`
+	RateLimitPerUser    Optional[int]       `json:"rate_limit"`
+}
+
+type ThreadStartFromMessageResponse = Channel
+
+type ThreadStartWithoutMessageRequest struct {
+	ChannelID           Snowflake             `json:"channel_id"`
+	Name                string                `json:"name"`
+	AutoArchiveDuration Optional[time.Time]   `json:"auto_archive_duration,omitempty"`
+	Type                Optional[ChannelType] `json:"type,omitempty"`
+	Invitable           Optional[bool]        `json:"invitable,omitempty"`
+	RateLimitPerUser    Optional[int]         `json:"rate_limit"`
+}
+
+type StartThreadWithoutMessageResponse = Channel
+
+type ThreadStartInForumRequest struct {
+	ChannelID           Snowflake                     `json:"channel_id"`
+	Name                string                        `json:"name"`
+	AutoArchiveDuration Optional[time.Time]           `json:"auto_archive_duration,omitempty"`
+	RateLimitPerUser    Optional[int]                 `json:"rate_limit"`
+	Message             Optional[MessageCreateParams] `json:"message,omitempty"`
+	AppliedTags         []Snowflake                   `json:"applied_tags,omitempty"`
+}
+
+type ThreadStartInForumResponse = Channel
+
+type ThreadJoinRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+}
+
+type ThreadJoinResponse struct{}
+
+type ThreadMemberAddRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	UserID    Snowflake `json:"user_id"`
+}
+
+type ThreadMemberAddResponse struct{}
+
+type ThreadLeaveRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+}
+
+type ThreadLeaveResponse struct{}
+
+type ThreadMemberRemoveRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	UserID    Snowflake `json:"user_id"`
+}
+
+type ThreadMemberRemoveResponse struct{}
+
+type ThreadMemberGetRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	UserID    Snowflake `json:"user_id"`
+}
+
+type ThreadMemberGetResponse = ThreadMember
+
+type ThreadMemberListRequest struct {
+	ChannelID  Snowflake           `json:"channel_id"`
+	WithMember Optional[bool]      `json:"with_member,omitempty"`
+	After      Optional[Snowflake] `json:"after,omitempty"`
+	Limit      Optional[int]       `json:"limit,omitempty"`
+}
+
+type ThreadMemberListResponse = []ThreadMember
+
+type ThreadListPublicArchivedRequest struct {
+	ChannelID Snowflake           `json:"channel_id"`
+	Before    Optional[time.Time] `json:"before,omitempty"`
+	Limit     Optional[int]       `json:"limit,omitempty"`
+}
+
+type ThreadListPublicArchivedResponse struct {
+	Threads []Channel      `json:"threads"`
+	Members []ThreadMember `json:"members"`
+	HasMore bool           `json:"has_more"`
+}
+
+type ThreadListPrivateArchivedRequest struct {
+	ChannelID Snowflake           `json:"channel_id"`
+	Before    Optional[time.Time] `json:"before,omitempty"`
+	Limit     Optional[int]       `json:"limit,omitempty"`
+}
+
+type ThreadListPrivateArchivedResponse struct {
+	Threads []Channel      `json:"threads"`
+	Members []ThreadMember `json:"members"`
+	HasMore bool           `json:"has_more"`
+}
+
+type ThreadListJoinedPrivateArchivedRequest struct {
+	ChannelID Snowflake           `json:"channel_id"`
+	Before    Optional[time.Time] `json:"before,omitempty"`
+	Limit     Optional[int]       `json:"limit,omitempty"`
+}
+
+type ThreadListJoinedPrivateArchivedResponse struct {
+	Threads []Channel      `json:"threads"`
+	Members []ThreadMember `json:"members"`
+	HasMore bool           `json:"has_more"`
 }

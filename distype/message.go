@@ -266,3 +266,5 @@ type EmbedField struct {
 	Value  string         `json:"value"`
 	Inline Optional[bool] `json:"inline,omitempty"`
 }
+
+type MessageCreateParams struct{}
