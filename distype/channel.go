@@ -108,6 +108,7 @@ type ThreadMetadata struct {
 type ThreadMember struct {
 	ID            Optional[Snowflake] `json:"id,omitempty"`
 	UserID        Optional[Snowflake] `json:"user_id,omitempty"`
+	GuildID       Optional[Snowflake] `json:"guild_id,omitempty"`
 	JoinTimestamp time.Time           `json:"join_timestamp"`
 	Flags         int                 `json:"flags"`
 	Member        Optional[Member]    `json:"member,omitempty"`
@@ -131,3 +132,38 @@ const (
 	PermissionOverwriteTypeRole   PermissionOverwriteType = 0
 	PermissionOverwriteTypeMember PermissionOverwriteType = 1
 )
+
+type ChannelCreateEvent = Channel
+
+type ChannelUpdateEvent = Channel
+
+type ChannelDeleteEvent = Channel
+
+type ThreadCreateEvent = Channel
+
+type ThreadUpdateEvent = Channel
+
+type ThreadDeleteEvent = Channel
+
+type ListSyncEvent struct {
+	GuildID    Snowflake      `json:"guild_id"`
+	ChannelIDs []Snowflake    `json:"channel_ids,omitempty"`
+	Threads    []Channel      `json:"threads"`
+	Members    []ThreadMember `json:"members"`
+}
+
+type ThreadMemberUpdateEvent = ThreadMember
+
+type ThreadMembersUpdateEvent struct {
+	ID               Snowflake      `json:"id"`
+	GuildID          Snowflake      `json:"guild_id"`
+	MemberCount      int            `json:"member_count"`
+	AddedMembers     []ThreadMember `json:"added_members,omitempty"`
+	RemovedMemberIDs []Snowflake    `json:"removed_member_ids,omitempty"`
+}
+
+type ChannePinsUpdateEvent struct {
+	GuildID          Optional[Snowflake] `json:"guild_id,omitempty"`
+	ChannelID        Snowflake           `json:"channel_id"`
+	LastPinTimestamp Optional[time.Time] `json:"last_pin_timestamp,omitempty"`
+}

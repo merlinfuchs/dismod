@@ -11,6 +11,10 @@ type Nullable[T any] struct {
 	Value T
 }
 
+func NullString(s string, valid bool) Nullable[string] {
+	return Nullable[string]{Valid: valid, Value: s}
+}
+
 func (n Nullable[T]) MarshalJSON() ([]byte, error) {
 	if n.Valid {
 		return json.Marshal(n.Value)
@@ -28,6 +32,13 @@ func (n *Nullable[T]) UnmarshalJSON(data []byte) error {
 }
 
 type Optional[T any] *T
+
+func OptionalString(s string, valid bool) Optional[string] {
+	if !valid {
+		return nil
+	}
+	return &s
+}
 
 type IntOrString struct {
 	Int    int
