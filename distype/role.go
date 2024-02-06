@@ -45,7 +45,7 @@ type RoleDeleteEvent struct {
 	GuildID Snowflake `json:"guild_id"`
 }
 
-type GuildRoleList struct {
+type GuildRoleListRequest struct {
 	GuildID Snowflake `json:"guild_id"`
 }
 

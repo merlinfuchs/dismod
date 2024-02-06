@@ -22,34 +22,34 @@ type GuildEmojiListRequest struct {
 
 type GuildEmojiListResponse = []Emoji
 
-type GuildEmojiGetRequest struct {
+type EmojiGetRequest struct {
 	GuildID Snowflake `json:"guild_id"`
 	EmojiID Snowflake `json:"emoji_id"`
 }
 
-type GuildEmojiGetResponse = Emoji
+type EmojiGetResponse = Emoji
 
-type GuildEmojiCreateRequest struct {
+type EmojiCreateRequest struct {
 	GuildID Snowflake   `json:"guild_id"`
 	Name    string      `json:"name"`
 	Image   string      `json:"image"`
 	Roles   []Snowflake `json:"roles,omitempty"`
 }
 
-type GuildEmojiCreateResponse = Emoji
+type EmojiCreateResponse = Emoji
 
-type GuildEmojiModifyRequest struct {
+type EmojiModifyRequest struct {
 	GuildID Snowflake   `json:"guild_id"`
 	EmojiID Snowflake   `json:"emoji_id"`
 	Name    string      `json:"name"`
 	Roles   []Snowflake `json:"roles,omitempty"`
 }
 
-type GuildEmojiModifyResponse = Emoji
+type EmojiModifyResponse = Emoji
 
-type GuildEmojiDeleteRequest struct {
+type EmojiDeleteRequest struct {
 	GuildID Snowflake `json:"guild_id"`
 	EmojiID Snowflake `json:"emoji_id"`
 }
 
-type GuildEmojiDeleteResponse struct{}
+type EmojiDeleteResponse struct{}

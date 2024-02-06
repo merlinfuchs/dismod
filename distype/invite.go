@@ -67,19 +67,19 @@ type InviteDeleteRequest struct {
 
 type InviteDeleteResponse = Invite
 
-type GuildListInvitesRequest struct {
+type GuildInviteListRequest struct {
 	GuildID Snowflake `json:"guild_id"`
 }
 
-type GuildListInvitesResponse = []Invite
+type GuildInviteListResponse = []Invite
 
-type ChannelListInvitesRequest struct {
+type ChannelInviteListRequest struct {
 	ChannelID Snowflake `json:"channel_id"`
 }
 
-type ChannelListInvitesResponse = []Invite
+type ChannelInviteListResponse = []Invite
 
-type ChannelCreateInviteRequest struct {
+type ChannelInviteCreateRequest struct {
 	ChannelID           Snowflake                  `json:"channel_id"`
 	MaxAge              Optional[int]              `json:"max_age,omitempty"`
 	MaxUses             Optional[int]              `json:"max_uses,omitempty"`
@@ -90,4 +90,4 @@ type ChannelCreateInviteRequest struct {
 	TargetApplicationID Optional[Snowflake]        `json:"target_application_id,omitempty"`
 }
 
-type ChannelCreateInviteResponse = Invite
+type ChannelInviteCreateResponse = Invite

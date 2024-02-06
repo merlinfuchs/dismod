@@ -31,7 +31,7 @@ type MemberAddEvent struct {
 	GuildID Snowflake `json:"guild_id"`
 }
 
-type MemberRemoveEVent struct {
+type MemberRemoveEvent struct {
 	User    User      `json:"user"`
 	GuildID Snowflake `json:"guild_id"`
 }
@@ -101,21 +101,21 @@ type MemberModifyCurrentRequest struct {
 
 type MemberModifyCurrentResponse struct{}
 
-type MemberAddRoleRequest struct {
+type MemberRoleAddRequest struct {
 	GuildID Snowflake `json:"guild_id"`
 	UserID  Snowflake `json:"user_id"`
 	RoleID  Snowflake `json:"role_id"`
 }
 
-type MemberAddRoleResponse struct{}
+type MemberRoleAddResponse struct{}
 
-type MemberRemoveRoleRequest struct {
+type MemberRoleRemoveRequest struct {
 	GuildID Snowflake `json:"guild_id"`
 	UserID  Snowflake `json:"user_id"`
 	RoleID  Snowflake `json:"role_id"`
 }
 
-type MemberRemoveRoleResponse struct{}
+type MemberRoleRemoveResponse struct{}
 
 type MemberRemoveRequest struct {
 	GuildID Snowflake `json:"guild_id"`

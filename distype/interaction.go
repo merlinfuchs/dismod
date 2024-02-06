@@ -239,35 +239,35 @@ type InteractionResponseDeleteRequest struct {
 
 type InteractionResponseDeleteResponse struct{}
 
-type InteractionFollowupMessageCreateRequest struct {
+type InteractionFollowupCreateRequest struct {
 	ApplicationID    Snowflake `json:"application_id"`
 	InteractionToken string    `json:"interaction_token"`
 	MessageCreateParams
 }
 
-type InteractionFollowupMessageCreateResponse = Message
+type InteractionFollowupCreateResponse = Message
 
-type InteractionFollowupMessageGetRequest struct {
+type InteractionFollowupGetRequest struct {
 	ApplicationID    Snowflake `json:"application_id"`
 	InteractionToken string    `json:"interaction_token"`
 	MessageID        Snowflake `json:"message_id"`
 }
 
-type InteractionFollowupMessageGetResponse = Message
+type InteractionFollowupGetResponse = Message
 
-type InteractionFollowupMessageEditRequest struct {
+type InteractionFollowupEditRequest struct {
 	ApplicationID    Snowflake `json:"application_id"`
 	InteractionToken string    `json:"interaction_token"`
 	MessageID        Snowflake `json:"message_id"`
 	MessageEditParams
 }
 
-type InteractionFollowupMessageEditResponse = Message
+type InteractionFollowupEditResponse = Message
 
-type InteractionFollowupMessageDeleteRequest struct {
+type InteractionFollowupDeleteRequest struct {
 	ApplicationID    Snowflake `json:"application_id"`
 	InteractionToken string    `json:"interaction_token"`
 	MessageID        Snowflake `json:"message_id"`
 }
 
-type InteractionFollowupMessageDeleteResponse struct{}
+type InteractionFollowupDeleteResponse struct{}

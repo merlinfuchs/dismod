@@ -42,14 +42,14 @@ type GuildStickerListRequest struct {
 
 type GuildStickerListResponse = []Sticker
 
-type GuildStickerGetRequest struct {
+type StickerGetRequest struct {
 	GuildID   Snowflake `json:"guild_id"`
 	StickerID Snowflake `json:"sticker_id"`
 }
 
-type GuildStickerGetResponse = Sticker
+type StickerGetResponse = Sticker
 
-type GuildStickerCreateRequest struct {
+type StickerCreateRequest struct {
 	GuildID     Snowflake `json:"guild_id"`
 	Name        string    `json:"name"`
 	Description string    `json:"description"`
@@ -57,9 +57,9 @@ type GuildStickerCreateRequest struct {
 	File        string    `json:"file"`
 }
 
-type GuildStickerCreateResponse = Sticker
+type StickerCreateResponse = Sticker
 
-type GuildStickerModifyRequest struct {
+type StickerModifyRequest struct {
 	GuildID     Snowflake `json:"guild_id"`
 	StickerID   Snowflake `json:"sticker_id"`
 	Name        string    `json:"name"`
@@ -67,11 +67,11 @@ type GuildStickerModifyRequest struct {
 	Tags        string    `json:"tags"`
 }
 
-type GuildStickerModifyResponse = Sticker
+type StickerModifyResponse = Sticker
 
-type GuildStickerDeleteRequest struct {
+type StickerDeleteRequest struct {
 	GuildID   Snowflake `json:"guild_id"`
 	StickerID Snowflake `json:"sticker_id"`
 }
 
-type GuildStickerDeleteResponse struct{}
+type GtickerDeleteResponse struct{}
