@@ -123,3 +123,24 @@ type MemberRemoveRequest struct {
 }
 
 type MemberRemoveResponse struct{}
+
+type MemberPruneCountRequest struct {
+	GuildID      Snowflake   `json:"guild_id"`
+	Days         int         `json:"days"`
+	IncludeRoles []Snowflake `json:"include_roles,omitempty"`
+}
+
+type MemberPruneCountResponse struct {
+	Pruned int `json:"pruned"`
+}
+
+type MemberPruneRequest struct {
+	GuildID           Snowflake      `json:"guild_id"`
+	Days              int            `json:"days"`
+	ComputePruneCount Optional[bool] `json:"compute_prune_count,omitempty"`
+	IncludeRoles      []Snowflake    `json:"include_roles,omitempty"`
+}
+
+type MemberPruneResponse struct {
+	Pruned Nullable[int] `json:"pruned"`
+}

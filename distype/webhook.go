@@ -54,7 +54,7 @@ type WebhookGetRequest struct {
 
 type WebhookGetResponse = Webhook
 
-type WebhookGetWithToken struct {
+type WebhookGetWithTokenRequest struct {
 	WebhookID    Snowflake `json:"webhook_id"`
 	WebhookToken string    `json:"webhook_token"`
 }

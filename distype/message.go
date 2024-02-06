@@ -462,13 +462,13 @@ type MessageReactionCreateRequest struct {
 
 type MessageReactionCreateResponse struct{}
 
-type MessageReactionDeleteOnRequest struct {
+type MessageReactionDeleteOwnRequest struct {
 	ChannelID Snowflake `json:"channel_id"`
 	MessageID Snowflake `json:"message_id"`
 	Emoji     string    `json:"emoji"`
 }
 
-type MessageReactionDeleteOnResponse struct{}
+type MessageReactionDeleteOwnResponse struct{}
 
 type MessageReactionDeleteRequest struct {
 	ChannelID Snowflake `json:"channel_id"`
