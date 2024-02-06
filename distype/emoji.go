@@ -10,3 +10,46 @@ type Emoji struct {
 	Animated       Optional[bool]      `json:"animated,omitempty"`
 	Available      Optional[bool]      `json:"available,omitempty"`
 }
+
+type GuildEmojisUpdateEvent struct {
+	GuildID Snowflake `json:"guild_id"`
+	Emojis  []Emoji   `json:"emojis"`
+}
+
+type GuildEmojiListRequest struct {
+	GuildID Snowflake `json:"guild_id"`
+}
+
+type GuildEmojiListResponse = []Emoji
+
+type GuildEmojiGetRequest struct {
+	GuildID Snowflake `json:"guild_id"`
+	EmojiID Snowflake `json:"emoji_id"`
+}
+
+type GuildEmojiGetResponse = Emoji
+
+type GuildEmojiCreateRequest struct {
+	GuildID Snowflake   `json:"guild_id"`
+	Name    string      `json:"name"`
+	Image   string      `json:"image"`
+	Roles   []Snowflake `json:"roles,omitempty"`
+}
+
+type GuildEmojiCreateResponse = Emoji
+
+type GuildEmojiModifyRequest struct {
+	GuildID Snowflake   `json:"guild_id"`
+	EmojiID Snowflake   `json:"emoji_id"`
+	Name    string      `json:"name"`
+	Roles   []Snowflake `json:"roles,omitempty"`
+}
+
+type GuildEmojiModifyResponse = Emoji
+
+type GuildEmojiDeleteRequest struct {
+	GuildID Snowflake `json:"guild_id"`
+	EmojiID Snowflake `json:"emoji_id"`
+}
+
+type GuildEmojiDeleteResponse struct{}

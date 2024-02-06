@@ -30,3 +30,48 @@ const (
 	StickerFormatTypeLOTTIE StickerFormatType = 3
 	StickerFormatTypeGIF    StickerFormatType = 4
 )
+
+type GuildStickersUpdateEvent struct {
+	GuildID  Snowflake `json:"guild_id"`
+	Stickers []Sticker `json:"stickers"`
+}
+
+type GuildStickerListRequest struct {
+	GuildID Snowflake `json:"guild_id"`
+}
+
+type GuildStickerListResponse = []Sticker
+
+type GuildStickerGetRequest struct {
+	GuildID   Snowflake `json:"guild_id"`
+	StickerID Snowflake `json:"sticker_id"`
+}
+
+type GuildStickerGetResponse = Sticker
+
+type GuildStickerCreateRequest struct {
+	GuildID     Snowflake `json:"guild_id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	Tags        string    `json:"tags"`
+	File        string    `json:"file"`
+}
+
+type GuildStickerCreateResponse = Sticker
+
+type GuildStickerModifyRequest struct {
+	GuildID     Snowflake `json:"guild_id"`
+	StickerID   Snowflake `json:"sticker_id"`
+	Name        string    `json:"name"`
+	Description string    `json:"description"`
+	Tags        string    `json:"tags"`
+}
+
+type GuildStickerModifyResponse = Sticker
+
+type GuildStickerDeleteRequest struct {
+	GuildID   Snowflake `json:"guild_id"`
+	StickerID Snowflake `json:"sticker_id"`
+}
+
+type GuildStickerDeleteResponse struct{}

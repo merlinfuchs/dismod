@@ -29,7 +29,7 @@ type Channel struct {
 	ThreadMetadata                Optional[ThreadMetadata]   `json:"thread_metadata,omitempty"`
 	Member                        Optional[ThreadMember]     `json:"member,omitempty"`
 	DefaultAutoArchive            Optional[int]              `json:"default_auto_archive_duration,omitempty"`
-	Permissions                   Optional[string]           `json:"permissions,omitempty"`
+	Permissions                   Optional[Permissions]      `json:"permissions,omitempty"`
 	Flags                         Optional[ChannelFlags]     `json:"flags,omitempty"`
 	TotalMessagesSent             Optional[int]              `json:"total_message_sent,omitempty"`
 	AvailableTags                 []ForumTag                 `json:"available_tags,omitempty"`
@@ -122,8 +122,8 @@ type DefaultReaction struct {
 type PermissionOverwrite struct {
 	ID    Snowflake               `json:"id"`
 	Type  PermissionOverwriteType `json:"type"`
-	Allow string                  `json:"allow"`
-	Deny  string                  `json:"deny"`
+	Allow Permissions             `json:"allow"`
+	Deny  Permissions             `json:"deny"`
 }
 
 type PermissionOverwriteType int
@@ -185,11 +185,11 @@ type ChannelDeleteRequest struct {
 type ChannelDeleteResponse = Channel
 
 type ChannelEditPermissionsRequest struct {
-	ChannelID   Snowflake                  `json:"channel_id"`
-	OverwriteID Snowflake                  `json:"overwrite_id"`
-	Allow       Optional[Nullable[string]] `json:"allow,omitempty"`
-	Deny        Optional[Nullable[string]] `json:"deny,omitempty"`
-	Type        PermissionOverwriteType    `json:"type,omitempty"`
+	ChannelID   Snowflake                       `json:"channel_id"`
+	OverwriteID Snowflake                       `json:"overwrite_id"`
+	Allow       Optional[Nullable[Permissions]] `json:"allow,omitempty"`
+	Deny        Optional[Nullable[Permissions]] `json:"deny,omitempty"`
+	Type        PermissionOverwriteType         `json:"type,omitempty"`
 }
 
 type ChannelEditPermissionsResponse struct{}

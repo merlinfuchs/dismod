@@ -46,8 +46,8 @@ const (
 )
 
 type InstallParams struct {
-	Scopes      []string `json:"scopes"`
-	Permissions []string `json:"permissions"`
+	Scopes      []string    `json:"scopes"`
+	Permissions Permissions `json:"permissions"`
 }
 
 type Team struct {

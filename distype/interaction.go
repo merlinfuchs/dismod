@@ -170,3 +170,104 @@ type ResolvedData struct {
 	Messages    map[Snowflake]Message    `json:"messages,omitempty"`
 	Attachments map[Snowflake]Attachment `json:"attachments,omitempty"`
 }
+
+type InteractionResponse struct {
+	Type InteractionResponseType `json:"type"`
+	Data InteractionResponseData `json:"data,omitempty"` // TODO: implement unmarshaler
+}
+
+type InteractionResponseType int
+
+const (
+	InteractionResponseTypePong                                 InteractionResponseType = 1
+	InteractionResponseTypeChannelMessageWithSource             InteractionResponseType = 4
+	InteractionResponseTypeDeferredChannelMessageWithSource     InteractionResponseType = 5
+	InteractionResponseTypeDeferredUpdateMessage                InteractionResponseType = 6
+	InteractionResponseTypeUpdateMessage                        InteractionResponseType = 7
+	InteractionResponseTypeApplicationCommandAutocompleteResult InteractionResponseType = 8
+	InteractionResponseTypeModal                                InteractionResponseType = 9
+	InteractionResponseTypePremiumRequired                      InteractionResponseType = 10
+)
+
+type InteractionResponseData interface {
+	InteractionResponseType() InteractionResponseType
+}
+
+type InteractionMessageResponse struct{} // TODO
+
+func (InteractionMessageResponse) InteractionResponseType() InteractionResponseType {
+	return InteractionResponseTypeChannelMessageWithSource
+}
+
+type InteractionAutocompleteResponse struct{} // TODO
+
+func (InteractionAutocompleteResponse) InteractionResponseType() InteractionResponseType {
+	return InteractionResponseTypeApplicationCommandAutocompleteResult
+}
+
+type InteractionModalResponse struct{} // TODO
+
+func (InteractionModalResponse) InteractionResponseType() InteractionResponseType {
+	return InteractionResponseTypeModal
+}
+
+type InteractionCreateEvent = Interaction
+
+type InteractionResponseCreateRequest = InteractionResponse
+
+type InteractionResponseCreateResponse struct{}
+
+type InteractionResponseGetRequest struct {
+	ApplicationID    Snowflake `json:"application_id"`
+	InteractionToken string    `json:"interaction_token"`
+}
+
+type InteractionResponseGetResponse = Message
+
+type InteractionResponseEditRequest struct {
+	ApplicationID    Snowflake `json:"application_id"`
+	InteractionToken string    `json:"interaction_token"`
+	MessageEditParams
+}
+
+type InteractionResponseEditResponse = Message
+
+type InteractionResponseDeleteRequest struct {
+	ApplicationID    Snowflake `json:"application_id"`
+	InteractionToken string    `json:"interaction_token"`
+}
+
+type InteractionResponseDeleteResponse struct{}
+
+type InteractionFollowupMessageCreateRequest struct {
+	ApplicationID    Snowflake `json:"application_id"`
+	InteractionToken string    `json:"interaction_token"`
+	MessageCreateParams
+}
+
+type InteractionFollowupMessageCreateResponse = Message
+
+type InteractionFollowupMessageGetRequest struct {
+	ApplicationID    Snowflake `json:"application_id"`
+	InteractionToken string    `json:"interaction_token"`
+	MessageID        Snowflake `json:"message_id"`
+}
+
+type InteractionFollowupMessageGetResponse = Message
+
+type InteractionFollowupMessageEditRequest struct {
+	ApplicationID    Snowflake `json:"application_id"`
+	InteractionToken string    `json:"interaction_token"`
+	MessageID        Snowflake `json:"message_id"`
+	MessageEditParams
+}
+
+type InteractionFollowupMessageEditResponse = Message
+
+type InteractionFollowupMessageDeleteRequest struct {
+	ApplicationID    Snowflake `json:"application_id"`
+	InteractionToken string    `json:"interaction_token"`
+	MessageID        Snowflake `json:"message_id"`
+}
+
+type InteractionFollowupMessageDeleteResponse struct{}

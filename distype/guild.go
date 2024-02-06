@@ -9,7 +9,7 @@ type Guild struct {
 	DiscoverySplash             Nullable[string]                `json:"discovery_splash"`
 	Owner                       Optional[bool]                  `json:"owner,omitempty"`
 	OwnerID                     Snowflake                       `json:"owner_id"`
-	Permissions                 Optional[string]                `json:"permissions,omitempty"`
+	Permissions                 Optional[Permissions]           `json:"permissions,omitempty"`
 	Region                      Optional[string]                `json:"region,omitempty"`
 	AFKChannelID                Nullable[Snowflake]             `json:"afk_channel_id"`
 	AFKTimeout                  int                             `json:"afk_timeout"`
@@ -43,6 +43,11 @@ type Guild struct {
 	Stickers                    []Sticker                       `json:"stickers,omitempty"`
 	PremiumProgressBarEnabled   bool                            `json:"premium_progress_bar_enabled"`
 	SafetyAlertsChannelID       Nullable[Snowflake]             `json:"safety_alerts_channel_id"`
+}
+
+type UnavailableGuild struct {
+	ID          Snowflake `json:"id"`
+	Unavailable bool      `json:"unavailable"`
 }
 
 type DefaultMessageNotificationlevel int
@@ -117,3 +122,42 @@ type WelcomeScreenChannel struct {
 	EmojiID     Nullable[Snowflake] `json:"emoji_id"`
 	EmojiName   Nullable[string]    `json:"emoji_name"`
 }
+
+type GuildCreateEvent = Guild
+
+type GuildUpdateEvent = Guild
+
+type GuildDeleteEvent = UnavailableGuild
+
+type GuildGetRequest struct {
+	GuildID Snowflake `json:"guild_id"`
+}
+
+type GuildGetResponse = Guild
+
+type GuildUpdateRequest struct {
+	GuildID                     Snowflake                                 `json:"guild_id"`
+	Name                        Optional[string]                          `json:"name,omitempty"`
+	Region                      Optional[Nullable[string]]                `json:"region,omitempty"`
+	VerificationLevel           Optional[VerificationLevel]               `json:"verification_level,omitempty"`
+	DefaultMessageNotifications Optional[DefaultMessageNotificationlevel] `json:"default_message_notifications,omitempty"`
+	ExplicitContentFilter       Optional[ExplicitContentFilterLevel]      `json:"explicit_content_filter,omitempty"`
+	AFKChannelID                Optional[Nullable[Snowflake]]             `json:"afk_channel_id,omitempty"`
+	AFKTimeout                  Optional[int]                             `json:"afk_timeout,omitempty"`
+	Icon                        Optional[Nullable[string]]                `json:"icon,omitempty"`
+	OwnerID                     Optional[Snowflake]                       `json:"owner_id,omitempty"`
+	Splash                      Optional[Nullable[string]]                `json:"splash,omitempty"`
+	DiscoverySplash             Optional[Nullable[string]]                `json:"discovery_splash,omitempty"`
+	Banner                      Optional[Nullable[string]]                `json:"banner,omitempty"`
+	SystemChannelID             Optional[Nullable[Snowflake]]             `json:"system_channel_id,omitempty"`
+	SystemChannelFlags          Optional[SystemChannelFlags]              `json:"system_channel_flags,omitempty"`
+	RulesChannelID              Optional[Nullable[Snowflake]]             `json:"rules_channel_id,omitempty"`
+	PublicUpdatesChannelID      Optional[Nullable[Snowflake]]             `json:"public_updates_channel_id,omitempty"`
+	PreferredLocale             Optional[Nullable[string]]                `json:"preferred_locale,omitempty"`
+	Features                    []string                                  `json:"features,omitempty"`
+	Description                 Optional[Nullable[string]]                `json:"description,omitempty"`
+	PremiumProgressBarEnabled   Optional[bool]                            `json:"premium_progress_bar_enabled,omitempty"`
+	SafetyAlertsChannelID       Optional[Nullable[Snowflake]]             `json:"safety_alerts_channel_id,omitempty"`
+}
+
+type GuildUpdateResponse = Guild

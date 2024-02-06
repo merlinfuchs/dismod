@@ -1,5 +1,10 @@
 package distype
 
+import (
+	"fmt"
+	"strconv"
+)
+
 type User struct {
 	ID               Snowflake                  `json:"id"`
 	Username         string                     `json:"username"`
@@ -18,6 +23,20 @@ type User struct {
 	PremiumType      Optional[int]              `json:"premium_type,omitempty"`
 	PublicFlags      Optional[int]              `json:"public_flags,omitempty"`
 	AvatarDecoration Optional[Nullable[string]] `json:"avatar_decoration,omitempty"`
+}
+
+func (u User) AvatarURL() string {
+	if u.Avatar.Valid {
+		return fmt.Sprintf("https://cdn.discordapp.com/avatars/%s/%s.png", u.ID, u.Avatar.Value)
+	}
+
+	if u.Discriminator == "0" {
+		dis, _ := strconv.ParseUint(u.Discriminator, 10, 8)
+		return fmt.Sprintf("https://cdn.discordapp.com/embed/avatars/%d.png", dis%5)
+	}
+
+	id, _ := strconv.ParseUint(u.Discriminator, 10, 64)
+	return fmt.Sprintf("https://cdn.discordapp.com/embed/avatars/%d.png", (id>>22)%6)
 }
 
 type UserFlags int
@@ -48,3 +67,9 @@ const (
 	PremiumTypeNitro        PremiumType = 2
 	PremiumTypeNitroBasic   PremiumType = 3
 )
+
+type UserGetRequest struct {
+	UserID Snowflake `json:"user_id"`
+}
+
+type UserGetResponse = User

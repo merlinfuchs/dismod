@@ -1,6 +1,7 @@
 package distype
 
 import (
+	"encoding/base64"
 	"encoding/json"
 	"time"
 )
@@ -267,4 +268,248 @@ type EmbedField struct {
 	Inline Optional[bool] `json:"inline,omitempty"`
 }
 
-type MessageCreateParams struct{}
+type AllowedMentions struct {
+	Parse       []AllowedMentionType `json:"parse"`
+	Roles       []Snowflake          `json:"roles"`
+	Users       []Snowflake          `json:"users"`
+	RepliedUser bool                 `json:"replied_user"`
+}
+
+type AllowedMentionType string
+
+const (
+	AllowedMentionTypeRoleMentions    AllowedMentionType = "roles"
+	AllowedMentionTypeUserMentions    AllowedMentionType = "users"
+	AllowedMentionTypeEveryoneMention AllowedMentionType = "everyone"
+)
+
+type MessageCreateEvent = Message
+
+type MessageUpdateEvent = Message
+
+type MessageDeleteEvent struct {
+	ID        Snowflake           `json:"id"`
+	ChannelID Snowflake           `json:"channel_id"`
+	GuildID   Optional[Snowflake] `json:"guild_id,omitempty"`
+}
+
+type MessageDeleteBulkEvent struct {
+	IDs       []Snowflake         `json:"ids"`
+	ChannelID Snowflake           `json:"channel_id"`
+	GuildID   Optional[Snowflake] `json:"guild_id,omitempty"`
+}
+
+type MessageReactionAddEvent struct {
+	UserID          Snowflake           `json:"user_id"`
+	ChannelID       Snowflake           `json:"channel_id"`
+	MessageID       Snowflake           `json:"message_id"`
+	GuildID         Optional[Snowflake] `json:"guild_id,omitempty"`
+	Member          Optional[Member]    `json:"member,omitempty"`
+	Emoji           Emoji               `json:"emoji"`
+	MessageAuthorID Optional[Snowflake] `json:"message_author_id,omitempty"`
+}
+
+type MessageReactionRemoveEvent struct {
+	UserID    Snowflake           `json:"user_id"`
+	ChannelID Snowflake           `json:"channel_id"`
+	MessageID Snowflake           `json:"message_id"`
+	GuildID   Optional[Snowflake] `json:"guild_id,omitempty"`
+	Emoji     Emoji               `json:"emoji"`
+}
+
+type MessageReactionRemoveAllEvent struct {
+	ChannelID Snowflake           `json:"channel_id"`
+	MessageID Snowflake           `json:"message_id"`
+	GuildID   Optional[Snowflake] `json:"guild_id,omitempty"`
+}
+
+type MessageReactionRemoveEmojiEvent struct {
+	ChannelID Snowflake           `json:"channel_id"`
+	MessageID Snowflake           `json:"message_id"`
+	GuildID   Optional[Snowflake] `json:"guild_id,omitempty"`
+	Emoji     Emoji               `json:"emoji"`
+}
+
+type MessageCreateParams struct {
+	Content          Optional[string]           `json:"content,omitempty"`
+	Nonce            Optional[string]           `json:"nonce,omitempty"`
+	TTS              Optional[bool]             `json:"tts,omitempty"`
+	Embeds           []Embed                    `json:"embeds,omitempty"`
+	AllowedMentions  Optional[AllowedMentions]  `json:"allowed_mentions,omitempty"`
+	MessageReference Optional[MessageReference] `json:"message_reference,omitempty"`
+	Components       []MessageComponent         `json:"components,omitempty"`
+	StickerIDs       []Snowflake                `json:"sticker_ids,omitempty"`
+	Attachments      []Attachment               `json:"attachments,omitempty"`
+	Files            []File                     `json:"files,omitempty"`
+	Flags            Optional[MessageFlags]     `json:"flags,omitempty"`
+}
+
+type MessageEditParams struct {
+	Content          Optional[string]           `json:"content,omitempty"`
+	Embeds           []Embed                    `json:"embeds,omitempty"`
+	AllowedMentions  Optional[AllowedMentions]  `json:"allowed_mentions,omitempty"`
+	MessageReference Optional[MessageReference] `json:"message_reference,omitempty"`
+	Components       []MessageComponent         `json:"components,omitempty"`
+	StickerIDs       []Snowflake                `json:"sticker_ids,omitempty"`
+	Attachments      []Attachment               `json:"attachments,omitempty"`
+	Files            []File                     `json:"files,omitempty"`
+	Flags            Optional[MessageFlags]     `json:"flags,omitempty"`
+}
+
+type File struct {
+	Filename    string `json:"filename"`
+	ContentType string `json:"content_type"`
+	Data        []byte `json:"data"`
+}
+
+type rawFile struct {
+	Filename    string `json:"filename"`
+	ContentType string `json:"content_type"`
+	Data        string `json:"data"`
+}
+
+func (f *File) MarshalJSON() ([]byte, error) {
+	base64Data := base64.StdEncoding.EncodeToString(f.Data)
+
+	return json.Marshal(rawFile{
+		Filename:    f.Filename,
+		ContentType: f.ContentType,
+		Data:        base64Data,
+	})
+}
+
+func (f *File) UnmarshalJSON(data []byte) error {
+	var rf rawFile
+	err := json.Unmarshal(data, &rf)
+	if err != nil {
+		return err
+	}
+
+	f.Filename = rf.Filename
+	f.ContentType = rf.ContentType
+	f.Data, err = base64.StdEncoding.DecodeString(rf.Data)
+	return err
+}
+
+type ChannelMessageListRequest struct {
+	ChannelID Snowflake           `json:"channel_id"`
+	Around    Optional[Snowflake] `json:"around,omitempty"`
+	Before    Optional[Snowflake] `json:"before,omitempty"`
+	After     Optional[Snowflake] `json:"after,omitempty"`
+	Limit     Optional[int]       `json:"limit,omitempty"`
+}
+
+type ChannelMessageListResponse = []Message
+
+type MessageGetRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
+}
+
+type MessageGetResponse = Message
+
+type MessageCreateRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	MessageCreateParams
+}
+
+type MessageCreateResponse = Message
+
+type MessageCrosspostRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
+}
+
+type MessageCrosspostResponse = Message
+
+type MessageEditRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
+	MessageEditParams
+}
+
+type MessageEditResponse = Message
+
+type MessageDeleteRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
+}
+
+type MessageDeleteResponse struct{}
+
+type MessageBulkDeleteRequest struct {
+	ChannelID Snowflake   `json:"channel_id"`
+	Messages  []Snowflake `json:"messages"`
+}
+
+type MessageBulkDeleteResponse struct{}
+
+type MessageReactionListRequest struct {
+	ChannelID Snowflake           `json:"channel_id"`
+	MessageID Snowflake           `json:"message_id"`
+	Emoji     Optional[string]    `json:"emoji,omitempty"`
+	After     Optional[Snowflake] `json:"after,omitempty"`
+	Limit     Optional[int]       `json:"limit,omitempty"`
+}
+
+type MessageReactionListResponse = []Reaction
+
+type MessageReactionCreateRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
+	Emoji     string    `json:"emoji"`
+}
+
+type MessageReactionCreateResponse struct{}
+
+type MessageReactionDeleteOnRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
+	Emoji     string    `json:"emoji"`
+}
+
+type MessageReactionDeleteOnResponse struct{}
+
+type MessageReactionDeleteRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
+	Emoji     string    `json:"emoji"`
+	UserID    Snowflake `json:"user_id"`
+}
+
+type MessageReactionDeleteResponse struct{}
+
+type MessageReactionDeleteAllRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
+}
+
+type MessageReactionDeleteAllResponse struct{}
+
+type MessageReactionDeleteEmojiRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
+	Emoji     string    `json:"emoji"`
+}
+
+type MessageReactionDeleteEmojiResponse struct{}
+
+type ChannelPinnedMessageListRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+}
+
+type ChannelPinnedMessageListResponse = []Message
+
+type MessagePinRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
+}
+
+type MessagePinResponse struct{}
+
+type MessageUnpinRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+	MessageID Snowflake `json:"message_id"`
+}
+
+type MessageUnpinResponse struct{}
