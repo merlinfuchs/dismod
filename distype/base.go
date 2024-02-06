@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 )
 
-type Snowflake string
+type Snowflake = string
 
 type Nullable[T any] struct {
 	Valid bool
