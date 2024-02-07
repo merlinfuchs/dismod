@@ -213,7 +213,11 @@ func (InteractionModalResponse) InteractionResponseType() InteractionResponseTyp
 
 type InteractionCreateEvent = Interaction
 
-type InteractionResponseCreateRequest = InteractionResponse
+type InteractionResponseCreateRequest struct {
+	InteractionID    Snowflake `json:"interaction_id"`
+	InteractionToken string    `json:"interaction_token"`
+	InteractionResponse
+}
 
 type InteractionResponseCreateResponse struct{}
 

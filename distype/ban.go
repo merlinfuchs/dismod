@@ -32,8 +32,9 @@ type BanGetRequest struct {
 type BanGetResponse = Ban
 
 type BanCreateRequest struct {
-	GuildID Snowflake `json:"guild_id"`
-	UserID  Snowflake `json:"user_id"`
+	GuildID              Snowflake     `json:"guild_id"`
+	UserID               Snowflake     `json:"user_id"`
+	DeleteMessageSeconds Optional[int] `json:"delete_message_seconds,omitempty"`
 }
 
 type BanCreateResponse = Ban

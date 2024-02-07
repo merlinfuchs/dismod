@@ -38,6 +38,13 @@ func OptionalString(s string, valid bool) Optional[string] {
 	return &s
 }
 
+func OptionalNullString(s string, valid bool) Optional[Nullable[string]] {
+	if valid {
+		return &Nullable[string]{Valid: true, Value: s}
+	}
+	return &Nullable[string]{Valid: false}
+}
+
 type IntOrString struct {
 	Int    int
 	String string

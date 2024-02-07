@@ -220,7 +220,7 @@ type ThreadStartWithoutMessageRequest struct {
 	RateLimitPerUser    Optional[int]         `json:"rate_limit"`
 }
 
-type StartThreadWithoutMessageResponse = Channel
+type ThreadStartWithoutMessageResponse = Channel
 
 type ThreadStartInForumRequest struct {
 	ChannelID           Snowflake                     `json:"channel_id"`
