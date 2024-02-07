@@ -159,11 +159,11 @@ func (s SelectMenu) MarshalJSON() ([]byte, error) {
 type SelectMenuType int
 
 const (
-	SelectMenuTypeString      SelectMenuType = SelectMenuType(MessageComponentTypeStringSelect)
-	SelectMenuTypeChannel     SelectMenuType = SelectMenuType(MessageComponentTypeChannelSelect)
-	SelectMenuTypeUser        SelectMenuType = SelectMenuType(MessageComponentTypeUserSelect)
-	SelectMenuTypeRole        SelectMenuType = SelectMenuType(MessageComponentTypeRoleSelect)
-	SelectMenuTypeMentionable SelectMenuType = SelectMenuType(MessageComponentTypeMentionableSelect)
+	SelectMenuTypeString      SelectMenuType = 3
+	SelectMenuTypeChannel     SelectMenuType = 8
+	SelectMenuTypeUser        SelectMenuType = 5
+	SelectMenuTypeRole        SelectMenuType = 6
+	SelectMenuTypeMentionable SelectMenuType = 7
 )
 
 type SelectOption struct {
