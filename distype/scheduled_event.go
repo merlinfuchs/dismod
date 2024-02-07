@@ -67,8 +67,8 @@ type ScheduledEventUserRemoveEvent struct {
 }
 
 type GuildScheduledEventListRequest struct {
-	GuildID         Snowflake      `json:"guild_id"`
-	WithUserCountrs Optional[bool] `json:"with_user_counts,omitempty"`
+	GuildID       Snowflake      `json:"guild_id"`
+	WithUserCount Optional[bool] `json:"with_user_count,omitempty"`
 }
 
 type GuildScheduledEventListResponse = []ScheduledEvent

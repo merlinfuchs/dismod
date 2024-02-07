@@ -84,12 +84,14 @@ type WebhookDeleteRequest struct {
 	WebhookID Snowflake `json:"webhook_id"`
 }
 
-type WebhookDeleteResponse = Webhook
+type WebhookDeleteResponse struct{}
 
 type WebhookDeleteWithTokenRequest struct {
 	WebhookID    Snowflake `json:"webhook_id"`
 	WebhookToken string    `json:"webhook_token"`
 }
+
+type WebhookDeleteWithTokenResponse struct{}
 
 type WebhookExecuteRequest struct {
 	WebhookID    Snowflake           `json:"webhook_id"`

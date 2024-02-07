@@ -74,4 +74,4 @@ type StickerDeleteRequest struct {
 	StickerID Snowflake `json:"sticker_id"`
 }
 
-type GtickerDeleteResponse struct{}
+type StickerDeleteResponse struct{}
