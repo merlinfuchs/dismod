@@ -19,9 +19,9 @@ type User struct {
 	Locale           Optional[string]           `json:"locale,omitempty"`
 	Verified         Optional[bool]             `json:"verified,omitempty"`
 	Email            Optional[Nullable[string]] `json:"email,omitempty"`
-	Flags            Optional[int]              `json:"flags,omitempty"`
+	Flags            Optional[UserFlags]        `json:"flags,omitempty"`
 	PremiumType      Optional[int]              `json:"premium_type,omitempty"`
-	PublicFlags      Optional[int]              `json:"public_flags,omitempty"`
+	PublicFlags      Optional[UserFlags]        `json:"public_flags,omitempty"`
 	AvatarDecoration Optional[Nullable[string]] `json:"avatar_decoration,omitempty"`
 }
 
