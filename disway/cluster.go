@@ -1,116 +1,75 @@
 package disway
 
 import (
-	"fmt"
-	"strings"
-	"sync"
-	"time"
+	"context"
+	"io"
+	"log/slog"
 
-	"github.com/merlinfuchs/dismod/disrest"
+	"github.com/disgoorg/disgo/gateway"
+	"github.com/disgoorg/disgo/sharding"
 	"github.com/merlinfuchs/dismod/distype"
-	"github.com/merlinfuchs/dismod/disutil"
 )
 
 type Cluster struct {
-	sync.RWMutex
-	Log    disutil.Logger
-	Client *disrest.Client
-
-	Token          string
-	ShardCount     int
-	FirstShardID   int
-	LastShardID    int
-	MaxConcurrency int
-	Gateway        string
-
-	Shards map[int]*Shard
+	log            *slog.Logger
+	manager        sharding.ShardManager
+	eventListeners map[distype.EventType][]func(s int, e any)
 }
 
-func NewCluster(token string, client *disrest.Client) *Cluster {
+func NewCluster(token string, logger *slog.Logger, opts ...sharding.ConfigOpt) *Cluster {
 	c := &Cluster{
-		Log:    disutil.DefaultLogger,
-		Client: client,
-		Token:  token,
-		Shards: make(map[int]*Shard),
+		log:            logger,
+		eventListeners: make(map[distype.EventType][]func(s int, e any)),
 	}
 
+	opts = append(opts,
+		sharding.WithGatewayConfigOpts(
+			gateway.WithEnableRawEvents(true),
+			gateway.WithLogger(c.log),
+			gateway.WithAutoReconnect(true),
+		),
+		sharding.WithRateLimiterConfigOpt(
+			sharding.WithRateLimiterLogger(c.log),
+		),
+		sharding.WithLogger(c.log),
+		sharding.WithAutoScaling(false),
+	)
+
+	c.manager = sharding.New(token, c.handleEvent, opts...)
 	return c
 }
 
-func (c *Cluster) prepare() error {
-	gateway, err := c.Client.GatewayBot()
-	if err != nil {
-		return fmt.Errorf("failed to get gateway: %w", err)
-	}
-
-	c.Gateway = gateway.URL
-	if !strings.HasSuffix(c.Gateway, "/") {
-		c.Gateway += "/"
-	}
-	c.Gateway += "?v=" + apiVersion + "&encoding=json"
-	fmt.Println(c.Gateway)
-
-	if c.ShardCount == 0 {
-		c.ShardCount = gateway.Shards
-		c.MaxConcurrency = gateway.MaxConcurrency
-	}
-
-	if c.LastShardID == 0 {
-		c.LastShardID = c.ShardCount - 1
-	}
-
-	if c.MaxConcurrency == 0 {
-		c.MaxConcurrency = 1
-	}
-
-	for i := c.FirstShardID; i <= c.LastShardID; i++ {
-		shard := NewShard(c.Token)
-		shard.ShardID = i
-		shard.ShardCount = c.ShardCount
-		shard.Gateway = c.Gateway
-		shard.Dispatch = func(t distype.EventType, d interface{}) {
-			fmt.Println("dispatch", t)
-			// TODO: dispatch to event handlers
-		}
-		c.Shards[i] = shard
-	}
-
-	return nil
+func (c *Cluster) Open(ctx context.Context) {
+	c.manager.Open(ctx)
 }
 
-func (c *Cluster) Open() error {
-	err := c.prepare()
+func (c *Cluster) Close(ctx context.Context) {
+	c.manager.Close(ctx)
+}
+
+func (c *Cluster) handleEvent(t gateway.EventType, _ int, s int, e gateway.EventData) {
+	if t != gateway.EventTypeRaw {
+		return
+	}
+
+	raw := e.(gateway.EventRaw)
+	payload, err := io.ReadAll(raw.Payload)
 	if err != nil {
-		return err
+		c.log.With("error", err).Error("failed to read raw event payload")
+		return
 	}
 
-	wg := sync.WaitGroup{}
-
-	for d := 0; d < c.MaxConcurrency; d++ {
-		wg.Add(1)
-
-		go func(divider int) {
-			defer wg.Done()
-
-			for id, shard := range c.Shards {
-				if id%c.MaxConcurrency != divider {
-					continue
-				}
-
-				err := shard.Open()
-				if err != nil {
-					c.Log(disutil.LogError, "failed to open shard %d: %w", id, err)
-					return
-				}
-
-				// This does some unnecessary waiting, but it's fine for now.
-				if id != len(c.Shards)-1 {
-					time.Sleep(5 * time.Second)
-				}
-			}
-		}(d)
+	event, err := distype.UnmarshalEvent(distype.EventType(raw.EventType), payload)
+	if err != nil {
+		c.log.With("error", err).Error("failed to unmarshal raw event")
+		return
 	}
 
-	wg.Wait()
-	return nil
+	for _, f := range c.eventListeners[distype.EventType(raw.EventType)] {
+		go f(s, event)
+	}
+}
+
+func (c *Cluster) AddEventListener(t distype.EventType, f func(s int, e any)) {
+	c.eventListeners[t] = append(c.eventListeners[t], f)
 }

@@ -1,26 +1,54 @@
 package main
 
 import (
-	"fmt"
+	"context"
+	"log/slog"
 	"os"
 
+	"github.com/disgoorg/disgo/gateway"
+	"github.com/disgoorg/disgo/sharding"
 	"github.com/merlinfuchs/dismod/disrest"
+	"github.com/merlinfuchs/dismod/distype"
 	"github.com/merlinfuchs/dismod/disway"
 )
 
 func main() {
 	discordToken := os.Getenv("DISCORD_TOKEN")
 
-	client := disrest.NewClient(discordToken)
+	logger := slog.New(slog.NewTextHandler(os.Stdout, &slog.HandlerOptions{
+		Level: slog.LevelInfo,
+	}))
 
-	cluster := disway.NewCluster(discordToken, client)
+	client := disrest.NewClient(discordToken, logger)
 
-	err := cluster.Open()
+	gatewayInfo, err := client.GatewayBot()
 	if err != nil {
-		panic(err)
+		logger.Error("failed to get gateway bot", "error", err)
+		return
 	}
 
-	fmt.Println(cluster.ShardCount, cluster.MaxConcurrency, len(cluster.Shards))
+	shardIDs := make([]int, gatewayInfo.Shards)
+	for i := range shardIDs {
+		shardIDs[i] = i
+	}
+
+	cluster := disway.NewCluster(
+		discordToken,
+		logger,
+		sharding.WithShardCount(gatewayInfo.Shards),
+		sharding.WithShardIDs(shardIDs...),
+		sharding.WithAutoScaling(false),
+		sharding.WithGatewayConfigOpts(
+			gateway.WithIntents(gateway.IntentGuilds),
+		),
+	)
+
+	cluster.AddEventListener(distype.EventTypeGuildCreate, func(s int, e any) {
+		guild := e.(*distype.GuildCreateEvent)
+		logger.Info("received guild create event", "guild", guild.ID)
+	})
+
+	cluster.Open(context.Background())
 
 	select {}
 }
