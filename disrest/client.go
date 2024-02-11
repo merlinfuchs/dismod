@@ -28,8 +28,12 @@ func NewClient(token string, logger *slog.Logger, opts ...rest.ConfigOpt) *Clien
 	}
 }
 
+func (c *Client) Request(endpoint *rest.CompiledEndpoint, rqBody interface{}, rsBody interface{}, opts ...rest.RequestOpt) error {
+	return c.client.Do(endpoint, rqBody, rsBody, opts...)
+}
+
 func (c *Client) GatewayBot(opts ...rest.RequestOpt) (res *distype.GatewayBotGetResponse, err error) {
-	err = c.client.Do(rest.GetGatewayBot.Compile(nil), nil, &res, opts...)
+	err = c.Request(rest.GetGatewayBot.Compile(nil), nil, &res, opts...)
 	if err != nil {
 		return
 	}
