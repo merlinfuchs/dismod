@@ -65,6 +65,10 @@ func (c *Cluster) handleEvent(t gateway.EventType, _ int, s int, e gateway.Event
 		return
 	}
 
+	for _, f := range c.eventListeners[distype.EventTypeAll] {
+		go f(s, event)
+	}
+
 	for _, f := range c.eventListeners[distype.EventType(raw.EventType)] {
 		go f(s, event)
 	}

@@ -7,6 +7,7 @@ import (
 type EventType string
 
 const (
+	EventTypeAll                                 EventType = "*"
 	EventTypeDisconnect                          EventType = "__DISCONNECT__"
 	EventTypeConnect                             EventType = "__CONNECT__"
 	EventTypeHello                               EventType = "HELLO"
