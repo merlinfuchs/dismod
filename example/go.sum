@@ -1,0 +1,6 @@
+github.com/merlinfuchs/dismod/distype v0.0.0-20240208093718-01aef1b5d24c h1:5VOvl+xh5loUwvvtWSURHIyr5ASZ5fcC/8nDvxBCSp4=
+github.com/merlinfuchs/dismod/distype v0.0.0-20240208093718-01aef1b5d24c/go.mod h1:ibd2rYlwExYzuPcsm+YtyDZg+s32T8Qdp/0E1hi2Pn8=
+github.com/merlinfuchs/dismod/disutil v0.0.0-20240208093718-01aef1b5d24c h1:8aiql4eRi8Mq8HIvC3891qMuanj/ES052cpb+My0iWA=
+github.com/merlinfuchs/dismod/disutil v0.0.0-20240208093718-01aef1b5d24c/go.mod h1:VMv67o4B8vQhUTlHsMJLvR4PSgL/KgPh4lPlK0hhOns=
+github.com/merlinfuchs/dismod/disway v0.0.0-20240208093718-01aef1b5d24c h1:SRw8GmBFXrcry3fwewHsMa54ycVRIA6CWjR/NneiFdo=
+github.com/merlinfuchs/dismod/disway v0.0.0-20240208093718-01aef1b5d24c/go.mod h1:1WxBlg2uxNsMOqHxdSFuz2Enj1zW8EGpJ2IXK9WGruw=

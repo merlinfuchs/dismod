@@ -5,9 +5,11 @@ use (
 	./disrest
 	./disutil
 	./disway
+	./example
 )
 
 replace github.com/merlinfuchs/dismod/distype v0.0.0 => ./distype
 replace github.com/merlinfuchs/dismod/disrest v0.0.0 => ./disrest
 replace github.com/merlinfuchs/dismod/disutil v0.0.0 => ./disutil
 replace github.com/merlinfuchs/dismod/disway v0.0.0 => ./disway
+replace github.com/merlinfuchs/dismod/example v0.0.0 => ./example

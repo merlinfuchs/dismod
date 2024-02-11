@@ -79,3 +79,7 @@ const (
 	TeamMemberRoleTypeDeveloper TeamMemberRoleType = "developer"
 	TeamMemberRoleReadOnly      TeamMemberRoleType = "read_only"
 )
+
+type ApplicationCommandPermissions struct{}
+
+type ApplicationCommandPermissionsUpdateEvent = ApplicationCommandPermissions

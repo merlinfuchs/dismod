@@ -68,6 +68,8 @@ const (
 	PremiumTypeNitroBasic   PremiumType = 3
 )
 
+type UserUpdateEvent = User
+
 type UserGetRequest struct {
 	UserID Snowflake `json:"user_id"`
 }

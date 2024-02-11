@@ -78,7 +78,7 @@ func (c *Client) RequestWithLockedBucket(method, urlStr, contentType string, b [
 
 	// Not used on initial login..
 	if c.Token != "" {
-		req.Header.Set("authorization", c.Token)
+		req.Header.Set("Authorization", "Bot "+c.Token)
 	}
 
 	// Discord's API returns a 400 Bad Request is Content-Type is set, but the
@@ -171,6 +171,20 @@ func (c *Client) RequestWithLockedBucket(method, urlStr, contentType string, b [
 		fallthrough
 	default: // Error condition
 		err = newRestError(req, resp, response)
+	}
+
+	return
+}
+
+func (c *Client) GatewayBot(options ...RequestOption) (st *distype.GatewayBotGetResponse, err error) {
+	response, err := c.Request("GET", EndpointGatewayBot, nil, options...)
+	if err != nil {
+		return
+	}
+
+	err = json.Unmarshal(response, &st)
+	if err != nil {
+		return
 	}
 
 	return

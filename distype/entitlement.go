@@ -17,3 +17,9 @@ type EntitlementType int
 const (
 	EntitlementTypeApplicationSubscription EntitlementType = 8
 )
+
+type EntitlementCreateEvent = Entitlement
+
+type EntitlementUpdateEvent = Entitlement
+
+type EntitlementDeleteEvent = Entitlement

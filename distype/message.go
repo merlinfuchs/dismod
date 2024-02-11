@@ -283,6 +283,14 @@ const (
 	AllowedMentionTypeEveryoneMention AllowedMentionType = "everyone"
 )
 
+type TypingStartEvent struct {
+	ChannelID Snowflake           `json:"channel_id"`
+	GuildID   Optional[Snowflake] `json:"guild_id,omitempty"`
+	UserID    Snowflake           `json:"user_id"`
+	Timestamp UnixTimestamp       `json:"timestamp"`
+	Member    Optional[Member]    `json:"member,omitempty"`
+}
+
 type MessageCreateEvent = Message
 
 type MessageUpdateEvent = Message

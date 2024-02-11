@@ -2,6 +2,7 @@ package distype
 
 import (
 	"encoding/json"
+	"time"
 )
 
 type Nullable[T any] struct {
@@ -64,4 +65,20 @@ func (i *IntOrString) UnmarshalJSON(data []byte) error {
 	}
 	i.String = ""
 	return json.Unmarshal(data, &i.Int)
+}
+
+type UnixTimestamp time.Time
+
+func (t UnixTimestamp) MarshalJSON() ([]byte, error) {
+	return json.Marshal(time.Time(t).Unix())
+}
+
+func (t *UnixTimestamp) UnmarshalJSON(data []byte) error {
+	var i int64
+	err := json.Unmarshal(data, &i)
+	if err != nil {
+		return err
+	}
+	*t = UnixTimestamp(time.Unix(i, 0))
+	return nil
 }
