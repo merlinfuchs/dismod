@@ -13,13 +13,13 @@ import (
 type Cluster struct {
 	log            *slog.Logger
 	manager        sharding.ShardManager
-	eventListeners map[distype.EventType][]func(s int, e any)
+	eventListeners map[distype.EventType][]func(s int, t distype.EventType, e any)
 }
 
 func NewCluster(token string, logger *slog.Logger, opts ...sharding.ConfigOpt) *Cluster {
 	c := &Cluster{
 		log:            logger,
-		eventListeners: make(map[distype.EventType][]func(s int, e any)),
+		eventListeners: make(map[distype.EventType][]func(s int, t distype.EventType, e any)),
 	}
 
 	opts = append(opts,
@@ -65,15 +65,23 @@ func (c *Cluster) handleEvent(t gateway.EventType, _ int, s int, e gateway.Event
 		return
 	}
 
+	eventType := distype.EventType(raw.EventType)
+
 	for _, f := range c.eventListeners[distype.EventTypeAll] {
-		go f(s, event)
+		go f(s, eventType, event)
 	}
 
 	for _, f := range c.eventListeners[distype.EventType(raw.EventType)] {
-		go f(s, event)
+		go f(s, eventType, event)
 	}
 }
 
 func (c *Cluster) AddEventListener(t distype.EventType, f func(s int, e any)) {
-	c.eventListeners[t] = append(c.eventListeners[t], f)
+	c.eventListeners[t] = append(c.eventListeners[t], func(s int, t distype.EventType, e any) {
+		f(s, e)
+	})
+}
+
+func (c *Cluster) AddAllEventListener(f func(s int, t distype.EventType, e any)) {
+	c.eventListeners[distype.EventTypeAll] = append(c.eventListeners[distype.EventTypeAll], f)
 }
