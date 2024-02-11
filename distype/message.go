@@ -39,6 +39,9 @@ type Message struct {
 	Position             Optional[int]                  `json:"position,omitempty"`
 	RoleSubscriptionData Optional[RoleSubscriptionData] `json:"role_subscription_data,omitempty"`
 	Resolved             Optional[ResolvedData]         `json:"resolved,omitempty"`
+	// Only set for message events
+	GuildID Optional[Snowflake] `json:"guild_id,omitempty"`
+	Member  Optional[Member]    `json:"member,omitempty"`
 }
 
 func (m *Message) UnmarshalJSON(data []byte) error {
