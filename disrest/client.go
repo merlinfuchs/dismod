@@ -1,6 +1,7 @@
 package disrest
 
 import (
+	"context"
 	"log/slog"
 
 	"github.com/disgoorg/disgo/rest"
@@ -26,6 +27,10 @@ func NewClient(token string, logger *slog.Logger, opts ...rest.ConfigOpt) *Clien
 		log:    logger,
 		client: client,
 	}
+}
+
+func (c *Client) Close(ctx context.Context) {
+	c.client.Close(ctx)
 }
 
 func (c *Client) Request(endpoint *rest.CompiledEndpoint, rqBody interface{}, rsBody interface{}, opts ...rest.RequestOpt) error {
