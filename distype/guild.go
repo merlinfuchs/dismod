@@ -1,5 +1,7 @@
 package distype
 
+import "time"
+
 type Guild struct {
 	ID                          Snowflake                       `json:"id"`
 	Name                        string                          `json:"name"`
@@ -43,6 +45,15 @@ type Guild struct {
 	Stickers                    []Sticker                       `json:"stickers,omitempty"`
 	PremiumProgressBarEnabled   bool                            `json:"premium_progress_bar_enabled"`
 	SafetyAlertsChannelID       Nullable[Snowflake]             `json:"safety_alerts_channel_id"`
+	// Only in guild events
+	JoinedAt             Optional[time.Time] `json:"joined_at,omitempty"`
+	Large                Optional[bool]      `json:"large,omitempty"`
+	Unavailable          Optional[bool]      `json:"unavailable"`
+	MemberCount          Optional[int]       `json:"member_count,omitempty"`
+	Members              []Member            `json:"members,omitempty"`
+	Channels             []Channel           `json:"channels,omitempty"`
+	StageInstances       []StageInstance     `json:"stage_instances,omitempty"`
+	GuildScheduledEvents []ScheduledEvent    `json:"guild_scheduled_events,omitempty"`
 }
 
 type UnavailableGuild struct {
