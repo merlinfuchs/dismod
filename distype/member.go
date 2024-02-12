@@ -36,7 +36,10 @@ type MemberRemoveEvent struct {
 	GuildID Snowflake `json:"guild_id"`
 }
 
-type MemberUpdateEvent = Member
+type MemberUpdateEvent struct {
+	Member
+	GuildID Snowflake `json:"guild_id"`
+}
 
 type MemberChunkEvent struct {
 	GuildID    Snowflake   `json:"guild_id"`
