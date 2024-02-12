@@ -3,18 +3,18 @@ package distype
 import "time"
 
 type Member struct {
-	User                       Optional[User]             `json:"user,omitempty"`
-	Nick                       Optional[Nullable[string]] `json:"nick,omitempty"`
-	Avatar                     Optional[Nullable[string]] `json:"avatar,omitempty"`
-	Roles                      []Snowflake                `json:"roles"`
-	JoinedAt                   time.Time                  `json:"joined_at"`
-	PremiumSince               Optional[time.Time]        `json:"premium_since,omitempty"`
-	Deaf                       bool                       `json:"deaf"`
-	Mute                       bool                       `json:"mute"`
-	Flags                      MemberFlags                `json:"flags"`
-	Pending                    Optional[bool]             `json:"pending,omitempty"`
-	Permissions                Optional[Permissions]      `json:"permissions,omitempty"`
-	CommunicationDisabledUntil Optional[time.Time]        `json:"communication_disabled_until,omitempty"`
+	User                       *User             `json:"user,omitempty"`
+	Nick                       *Nullable[string] `json:"nick,omitempty"`
+	Avatar                     *Nullable[string] `json:"avatar,omitempty"`
+	Roles                      []Snowflake       `json:"roles"`
+	JoinedAt                   time.Time         `json:"joined_at"`
+	PremiumSince               *time.Time        `json:"premium_since,omitempty"`
+	Deaf                       bool              `json:"deaf"`
+	Mute                       bool              `json:"mute"`
+	Flags                      MemberFlags       `json:"flags"`
+	Pending                    *bool             `json:"pending,omitempty"`
+	Permissions                *Permissions      `json:"permissions,omitempty"`
+	CommunicationDisabledUntil *time.Time        `json:"communication_disabled_until,omitempty"`
 }
 
 type MemberFlags int
@@ -55,48 +55,48 @@ type MemberGetRequest struct {
 type MemberGetResponse = Member
 
 type GuildMemberListRequest struct {
-	GuildID Snowflake           `json:"guild_id"`
-	Limit   Optional[int]       `json:"limit,omitempty"`
-	After   Optional[Snowflake] `json:"after,omitempty"`
+	GuildID Snowflake  `json:"guild_id"`
+	Limit   *int       `json:"limit,omitempty"`
+	After   *Snowflake `json:"after,omitempty"`
 }
 
 type GuildMemberListResponse = []Member
 
 type GuildMemberSearchRequest struct {
-	GuildID Snowflake     `json:"guild_id"`
-	Query   string        `json:"query"`
-	Limit   Optional[int] `json:"limit,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
+	Query   string    `json:"query"`
+	Limit   *int      `json:"limit,omitempty"`
 }
 
 type GuildMemberSearchResponse = []Member
 
 type MemberAddRequest struct {
-	GuildID     Snowflake        `json:"guild_id"`
-	UserID      Snowflake        `json:"user_id"`
-	AccessToken string           `json:"access_token"`
-	Nick        Optional[string] `json:"nick,omitempty"`
-	Roles       []Snowflake      `json:"roles,omitempty"`
-	Mute        Optional[bool]   `json:"mute,omitempty"`
-	Deaf        Optional[bool]   `json:"deaf,omitempty"`
+	GuildID     Snowflake   `json:"guild_id"`
+	UserID      Snowflake   `json:"user_id"`
+	AccessToken string      `json:"access_token"`
+	Nick        *string     `json:"nick,omitempty"`
+	Roles       []Snowflake `json:"roles,omitempty"`
+	Mute        *bool       `json:"mute,omitempty"`
+	Deaf        *bool       `json:"deaf,omitempty"`
 }
 
 type MemberModifyRequest struct {
-	GuildID                    Snowflake             `json:"guild_id"`
-	UserID                     Snowflake             `json:"user_id"`
-	Nick                       Optional[string]      `json:"nick,omitempty"`
-	Roles                      []Snowflake           `json:"roles,omitempty"`
-	Mute                       Optional[bool]        `json:"mute,omitempty"`
-	Deaf                       Optional[bool]        `json:"deaf,omitempty"`
-	ChannelID                  Optional[Snowflake]   `json:"channel_id,omitempty"`
-	CommunicationDisabledUntil Optional[time.Time]   `json:"communication_disabled_until,omitempty"`
-	Flags                      Optional[MemberFlags] `json:"flags,omitempty"`
+	GuildID                    Snowflake    `json:"guild_id"`
+	UserID                     Snowflake    `json:"user_id"`
+	Nick                       *string      `json:"nick,omitempty"`
+	Roles                      []Snowflake  `json:"roles,omitempty"`
+	Mute                       *bool        `json:"mute,omitempty"`
+	Deaf                       *bool        `json:"deaf,omitempty"`
+	ChannelID                  *Snowflake   `json:"channel_id,omitempty"`
+	CommunicationDisabledUntil *time.Time   `json:"communication_disabled_until,omitempty"`
+	Flags                      *MemberFlags `json:"flags,omitempty"`
 }
 
 type MemberModifyResponse = Member
 
 type MemberModifyCurrentRequest struct {
-	GuildID Snowflake        `json:"guild_id"`
-	Nick    Optional[string] `json:"nick,omitempty"`
+	GuildID Snowflake `json:"guild_id"`
+	Nick    *string   `json:"nick,omitempty"`
 }
 
 type MemberModifyCurrentResponse struct{}
@@ -135,10 +135,10 @@ type MemberPruneCountResponse struct {
 }
 
 type MemberPruneRequest struct {
-	GuildID           Snowflake      `json:"guild_id"`
-	Days              int            `json:"days"`
-	ComputePruneCount Optional[bool] `json:"compute_prune_count,omitempty"`
-	IncludeRoles      []Snowflake    `json:"include_roles,omitempty"`
+	GuildID           Snowflake   `json:"guild_id"`
+	Days              int         `json:"days"`
+	ComputePruneCount *bool       `json:"compute_prune_count,omitempty"`
+	IncludeRoles      []Snowflake `json:"include_roles,omitempty"`
 }
 
 type MemberPruneResponse struct {

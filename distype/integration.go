@@ -3,22 +3,22 @@ package distype
 import "time"
 
 type Integration struct {
-	ID                Snowflake                           `json:"id"`
-	Name              string                              `json:"name"`
-	Type              IntegrationType                     `json:"type"`
-	Enabled           bool                                `json:"enabled"`
-	Syncing           Optional[bool]                      `json:"syncing,omitempty"`
-	RoleID            Optional[Snowflake]                 `json:"role_id,omitempty"`
-	EnableEmoticons   Optional[bool]                      `json:"enable_emoticons,omitempty"`
-	ExpireBehavior    Optional[IntegrationExpireBehavior] `json:"expire_behavior,omitempty"`
-	ExpireGracePeriod Optional[int]                       `json:"expire_grace_period,omitempty"`
-	User              Optional[User]                      `json:"user,omitempty"`
-	Account           IntegrationAccount                  `json:"account"`
-	SyncedAt          Optional[time.Time]                 `json:"synced_at,omitempty"`
-	SubscriberCount   Optional[int]                       `json:"subscriber_count,omitempty"`
-	Revoked           Optional[bool]                      `json:"revoked,omitempty"`
-	Application       Optional[Application]               `json:"application,omitempty"`
-	Scopes            []string                            `json:"scopes,omitempty"`
+	ID                Snowflake                  `json:"id"`
+	Name              string                     `json:"name"`
+	Type              IntegrationType            `json:"type"`
+	Enabled           bool                       `json:"enabled"`
+	Syncing           *bool                      `json:"syncing,omitempty"`
+	RoleID            *Snowflake                 `json:"role_id,omitempty"`
+	EnableEmoticons   *bool                      `json:"enable_emoticons,omitempty"`
+	ExpireBehavior    *IntegrationExpireBehavior `json:"expire_behavior,omitempty"`
+	ExpireGracePeriod *int                       `json:"expire_grace_period,omitempty"`
+	User              *User                      `json:"user,omitempty"`
+	Account           IntegrationAccount         `json:"account"`
+	SyncedAt          *time.Time                 `json:"synced_at,omitempty"`
+	SubscriberCount   *int                       `json:"subscriber_count,omitempty"`
+	Revoked           *bool                      `json:"revoked,omitempty"`
+	Application       *Application               `json:"application,omitempty"`
+	Scopes            []string                   `json:"scopes,omitempty"`
 }
 
 type IntegrationType string
@@ -51,9 +51,9 @@ type IntegrationCreateEvent = Integration
 type IntegrationUpdateEvent = Integration
 
 type IntegrationDeleteEvent struct {
-	ID            Snowflake           `json:"id"`
-	GuildID       Snowflake           `json:"guild_id"`
-	ApplicationID Optional[Snowflake] `json:"application_id,omitempty"`
+	ID            Snowflake  `json:"id"`
+	GuildID       Snowflake  `json:"guild_id"`
+	ApplicationID *Snowflake `json:"application_id,omitempty"`
 }
 
 type GuildIntegrationListRequest struct {

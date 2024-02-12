@@ -60,7 +60,7 @@ func TestNullable(t *testing.T) {
 
 func TestOptional(t *testing.T) {
 	type testStruct struct {
-		Val Optional[int] `json:"val,omitempty"`
+		Val *int `json:"val,omitempty"`
 	}
 
 	tests := []struct {
@@ -100,7 +100,7 @@ func TestOptional(t *testing.T) {
 
 func TestNullish(t *testing.T) {
 	type testStruct struct {
-		Val Optional[Nullable[int]] `json:"val,omitempty"`
+		Val *Nullable[int] `json:"val,omitempty"`
 	}
 
 	tests := []struct {

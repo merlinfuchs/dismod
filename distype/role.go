@@ -1,27 +1,27 @@
 package distype
 
 type Role struct {
-	ID           Snowflake                  `json:"id"`
-	Name         string                     `json:"name"`
-	Color        int                        `json:"color"`
-	Hoist        bool                       `json:"hoist"`
-	Icon         Optional[Nullable[string]] `json:"icon,omitempty"`
-	UnicodeEmoji Optional[Nullable[string]] `json:"unicode_emoji,omitempty"`
-	Position     int                        `json:"position"`
-	Permissions  Permissions                `json:"permissions"`
-	Managed      bool                       `json:"managed"`
-	Mentionable  bool                       `json:"mentionable"`
-	Tags         Optional[RoleTags]         `json:"tags,omitempty"`
-	Flags        RoleFlags                  `json:"flags"`
+	ID           Snowflake         `json:"id"`
+	Name         string            `json:"name"`
+	Color        int               `json:"color"`
+	Hoist        bool              `json:"hoist"`
+	Icon         *Nullable[string] `json:"icon,omitempty"`
+	UnicodeEmoji *Nullable[string] `json:"unicode_emoji,omitempty"`
+	Position     int               `json:"position"`
+	Permissions  Permissions       `json:"permissions"`
+	Managed      bool              `json:"managed"`
+	Mentionable  bool              `json:"mentionable"`
+	Tags         *RoleTags         `json:"tags,omitempty"`
+	Flags        RoleFlags         `json:"flags"`
 }
 
 type RoleTags struct {
-	BotID                 Optional[Snowflake]          `json:"bot_id,omitempty"`
-	IntegrationID         Optional[Snowflake]          `json:"integration_id,omitempty"`
-	PremiumSubscriber     Optional[Nullable[struct{}]] `json:"premium_subscriber,omitempty"`
-	SubscriptionListingID Optional[Snowflake]          `json:"subscription_listing_id"`
-	AvailableForPurchase  Optional[Nullable[struct{}]] `json:"available_for_purchase,omitempty"`
-	GuildConnections      Optional[Nullable[struct{}]] `json:"guild_connections,omitempty"`
+	BotID                 *Snowflake          `json:"bot_id,omitempty"`
+	IntegrationID         *Snowflake          `json:"integration_id,omitempty"`
+	PremiumSubscriber     *Nullable[struct{}] `json:"premium_subscriber,omitempty"`
+	SubscriptionListingID *Snowflake          `json:"subscription_listing_id,omitempty"`
+	AvailableForPurchase  *Nullable[struct{}] `json:"available_for_purchase,omitempty"`
+	GuildConnections      *Nullable[struct{}] `json:"guild_connections,omitempty"`
 }
 
 type RoleFlags int
@@ -52,28 +52,28 @@ type GuildRoleListRequest struct {
 type GuildRoleListResponse = []Role
 
 type RoleCreateRequest struct {
-	GuildID      Snowflake             `json:"guild_id"`
-	Name         Optional[string]      `json:"name,omitempty"`
-	Permissions  Optional[Permissions] `json:"permissions,omitempty"`
-	Color        Optional[int]         `json:"color,omitempty"`
-	Hoist        Optional[bool]        `json:"hoist,omitempty"`
-	Icon         Optional[string]      `json:"icon,omitempty"`
-	UnicodeEmoji Optional[string]      `json:"unicode_emoji,omitempty"`
-	Mentionable  Optional[bool]        `json:"mentionable,omitempty"`
+	GuildID      Snowflake    `json:"guild_id"`
+	Name         *string      `json:"name,omitempty"`
+	Permissions  *Permissions `json:"permissions,omitempty"`
+	Color        *int         `json:"color,omitempty"`
+	Hoist        *bool        `json:"hoist,omitempty"`
+	Icon         *string      `json:"icon,omitempty"`
+	UnicodeEmoji *string      `json:"unicode_emoji,omitempty"`
+	Mentionable  *bool        `json:"mentionable,omitempty"`
 }
 
 type RoleCreateResponse = Role
 
 type RoleModifyRequest struct {
-	GuildID      Snowflake             `json:"guild_id"`
-	RoleID       Snowflake             `json:"role_id"`
-	Name         Optional[string]      `json:"name,omitempty"`
-	Permissions  Optional[Permissions] `json:"permissions,omitempty"`
-	Color        Optional[int]         `json:"color,omitempty"`
-	Icon         Optional[string]      `json:"icon,omitempty"`
-	UnicodeEmoji Optional[string]      `json:"unicode_emoji,omitempty"`
-	Mentionable  Optional[bool]        `json:"mentionable,omitempty"`
-	Hoist        Optional[bool]        `json:"hoist,omitempty"`
+	GuildID      Snowflake    `json:"guild_id"`
+	RoleID       Snowflake    `json:"role_id"`
+	Name         *string      `json:"name,omitempty"`
+	Permissions  *Permissions `json:"permissions,omitempty"`
+	Color        *int         `json:"color,omitempty"`
+	Icon         *string      `json:"icon,omitempty"`
+	UnicodeEmoji *string      `json:"unicode_emoji,omitempty"`
+	Mentionable  *bool        `json:"mentionable,omitempty"`
+	Hoist        *bool        `json:"hoist,omitempty"`
 }
 
 type RoleModifyResponse = Role
@@ -88,8 +88,8 @@ type RoleDeleteResponse struct{}
 type RolePositionsModifyRequest = []RolePositionsModifyEntry
 
 type RolePositionsModifyEntry struct {
-	ID       Snowflake     `json:"id"`
-	Position Optional[int] `json:"position,omitempty"`
+	ID       Snowflake `json:"id"`
+	Position *int      `json:"position,omitempty"`
 }
 
 type RolePositionsModifyResponse struct{}

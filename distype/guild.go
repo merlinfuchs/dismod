@@ -6,17 +6,17 @@ type Guild struct {
 	ID                          Snowflake                       `json:"id"`
 	Name                        string                          `json:"name"`
 	Icon                        Nullable[string]                `json:"icon"`
-	IconHash                    Optional[Nullable[string]]      `json:"icon_hash,omitempty"`
+	IconHash                    *Nullable[string]               `json:"icon_hash,omitempty"`
 	Splash                      Nullable[string]                `json:"splash"`
 	DiscoverySplash             Nullable[string]                `json:"discovery_splash"`
-	Owner                       Optional[bool]                  `json:"owner,omitempty"`
+	Owner                       *bool                           `json:"owner,omitempty"`
 	OwnerID                     Snowflake                       `json:"owner_id"`
-	Permissions                 Optional[Permissions]           `json:"permissions,omitempty"`
-	Region                      Optional[string]                `json:"region,omitempty"`
+	Permissions                 *Permissions                    `json:"permissions,omitempty"`
+	Region                      *string                         `json:"region,omitempty"`
 	AFKChannelID                Nullable[Snowflake]             `json:"afk_channel_id"`
 	AFKTimeout                  int                             `json:"afk_timeout"`
-	WidgetEnabled               Optional[bool]                  `json:"widget_enabled,omitempty"`
-	WidgetChannelID             Optional[Nullable[Snowflake]]   `json:"widget_channel_id,omitempty"`
+	WidgetEnabled               *bool                           `json:"widget_enabled,omitempty"`
+	WidgetChannelID             *Nullable[Snowflake]            `json:"widget_channel_id,omitempty"`
 	VerificationLevel           VerificationLevel               `json:"verification_level"`
 	DefaultMessageNotifications DefaultMessageNotificationlevel `json:"default_message_notifications"`
 	ExplicitContentFilter       ExplicitContentFilterLevel      `json:"explicit_content_filter"`
@@ -27,33 +27,33 @@ type Guild struct {
 	ApplicationID               Nullable[Snowflake]             `json:"application_id"`
 	SystemChannelID             Nullable[Snowflake]             `json:"system_channel_id"`
 	SystemChannelFlags          SystemChannelFlags              `json:"system_channel_flags"`
-	MaxPresences                Optional[Nullable[int]]         `json:"max_presences,omitempty"`
-	MaxMembers                  Optional[int]                   `json:"max_members,omitempty"`
+	MaxPresences                *Nullable[int]                  `json:"max_presences,omitempty"`
+	MaxMembers                  *int                            `json:"max_members,omitempty"`
 	VanityURLCode               Nullable[string]                `json:"vanity_url_code"`
 	Description                 Nullable[string]                `json:"description"`
 	Banner                      Nullable[string]                `json:"banner"`
 	PremiumTier                 PremiumTier                     `json:"premium_tier"`
-	PremiumSubscriptionCount    Optional[int]                   `json:"premium_subscription_count,omitempty"`
+	PremiumSubscriptionCount    *int                            `json:"premium_subscription_count,omitempty"`
 	PreferredLocale             string                          `json:"preferred_locale"`
 	PublicUpdatesChannelID      Nullable[Snowflake]             `json:"public_updates_channel_id"`
-	MaxVideoChannelUsers        Optional[int]                   `json:"max_video_channel_users,omitempty"`
-	MaxStageVideoChannelUsers   Optional[int]                   `json:"max_stage_video_channel_users,omitempty"`
-	ApproximateMemberCount      Optional[int]                   `json:"approximate_member_count,omitempty"`
-	ApproximatePresenceCount    Optional[int]                   `json:"approximate_presence_count,omitempty"`
-	WelcomeScreen               Optional[WelcomeScreen]         `json:"welcome_screen,omitempty"`
+	MaxVideoChannelUsers        *int                            `json:"max_video_channel_users,omitempty"`
+	MaxStageVideoChannelUsers   *int                            `json:"max_stage_video_channel_users,omitempty"`
+	ApproximateMemberCount      *int                            `json:"approximate_member_count,omitempty"`
+	ApproximatePresenceCount    *int                            `json:"approximate_presence_count,omitempty"`
+	WelcomeScreen               *WelcomeScreen                  `json:"welcome_screen,omitempty"`
 	NSFWLevel                   GuildNSFWLevel                  `json:"nsfw_level"`
 	Stickers                    []Sticker                       `json:"stickers,omitempty"`
 	PremiumProgressBarEnabled   bool                            `json:"premium_progress_bar_enabled"`
 	SafetyAlertsChannelID       Nullable[Snowflake]             `json:"safety_alerts_channel_id"`
 	// Only in guild events
-	JoinedAt             Optional[time.Time] `json:"joined_at,omitempty"`
-	Large                Optional[bool]      `json:"large,omitempty"`
-	Unavailable          Optional[bool]      `json:"unavailable"`
-	MemberCount          Optional[int]       `json:"member_count,omitempty"`
-	Members              []Member            `json:"members,omitempty"`
-	Channels             []Channel           `json:"channels,omitempty"`
-	StageInstances       []StageInstance     `json:"stage_instances,omitempty"`
-	GuildScheduledEvents []ScheduledEvent    `json:"guild_scheduled_events,omitempty"`
+	JoinedAt             *time.Time       `json:"joined_at,omitempty"`
+	Large                *bool            `json:"large,omitempty"`
+	Unavailable          *bool            `json:"unavailable,omitempty"`
+	MemberCount          *int             `json:"member_count,omitempty"`
+	Members              []Member         `json:"members,omitempty"`
+	Channels             []Channel        `json:"channels,omitempty"`
+	StageInstances       []StageInstance  `json:"stage_instances,omitempty"`
+	GuildScheduledEvents []ScheduledEvent `json:"guild_scheduled_events,omitempty"`
 }
 
 type UnavailableGuild struct {
@@ -147,28 +147,28 @@ type GuildGetRequest struct {
 type GuildGetResponse = Guild
 
 type GuildUpdateRequest struct {
-	GuildID                     Snowflake                                 `json:"guild_id"`
-	Name                        Optional[string]                          `json:"name,omitempty"`
-	Region                      Optional[Nullable[string]]                `json:"region,omitempty"`
-	VerificationLevel           Optional[VerificationLevel]               `json:"verification_level,omitempty"`
-	DefaultMessageNotifications Optional[DefaultMessageNotificationlevel] `json:"default_message_notifications,omitempty"`
-	ExplicitContentFilter       Optional[ExplicitContentFilterLevel]      `json:"explicit_content_filter,omitempty"`
-	AFKChannelID                Optional[Nullable[Snowflake]]             `json:"afk_channel_id,omitempty"`
-	AFKTimeout                  Optional[int]                             `json:"afk_timeout,omitempty"`
-	Icon                        Optional[Nullable[string]]                `json:"icon,omitempty"`
-	OwnerID                     Optional[Snowflake]                       `json:"owner_id,omitempty"`
-	Splash                      Optional[Nullable[string]]                `json:"splash,omitempty"`
-	DiscoverySplash             Optional[Nullable[string]]                `json:"discovery_splash,omitempty"`
-	Banner                      Optional[Nullable[string]]                `json:"banner,omitempty"`
-	SystemChannelID             Optional[Nullable[Snowflake]]             `json:"system_channel_id,omitempty"`
-	SystemChannelFlags          Optional[SystemChannelFlags]              `json:"system_channel_flags,omitempty"`
-	RulesChannelID              Optional[Nullable[Snowflake]]             `json:"rules_channel_id,omitempty"`
-	PublicUpdatesChannelID      Optional[Nullable[Snowflake]]             `json:"public_updates_channel_id,omitempty"`
-	PreferredLocale             Optional[Nullable[string]]                `json:"preferred_locale,omitempty"`
-	Features                    []string                                  `json:"features,omitempty"`
-	Description                 Optional[Nullable[string]]                `json:"description,omitempty"`
-	PremiumProgressBarEnabled   Optional[bool]                            `json:"premium_progress_bar_enabled,omitempty"`
-	SafetyAlertsChannelID       Optional[Nullable[Snowflake]]             `json:"safety_alerts_channel_id,omitempty"`
+	GuildID                     Snowflake                        `json:"guild_id"`
+	Name                        *string                          `json:"name,omitempty"`
+	Region                      *Nullable[string]                `json:"region,omitempty"`
+	VerificationLevel           *VerificationLevel               `json:"verification_level,omitempty"`
+	DefaultMessageNotifications *DefaultMessageNotificationlevel `json:"default_message_notifications,omitempty"`
+	ExplicitContentFilter       *ExplicitContentFilterLevel      `json:"explicit_content_filter,omitempty"`
+	AFKChannelID                *Nullable[Snowflake]             `json:"afk_channel_id,omitempty"`
+	AFKTimeout                  *int                             `json:"afk_timeout,omitempty"`
+	Icon                        *Nullable[string]                `json:"icon,omitempty"`
+	OwnerID                     *Snowflake                       `json:"owner_id,omitempty"`
+	Splash                      *Nullable[string]                `json:"splash,omitempty"`
+	DiscoverySplash             *Nullable[string]                `json:"discovery_splash,omitempty"`
+	Banner                      *Nullable[string]                `json:"banner,omitempty"`
+	SystemChannelID             *Nullable[Snowflake]             `json:"system_channel_id,omitempty"`
+	SystemChannelFlags          *SystemChannelFlags              `json:"system_channel_flags,omitempty"`
+	RulesChannelID              *Nullable[Snowflake]             `json:"rules_channel_id,omitempty"`
+	PublicUpdatesChannelID      *Nullable[Snowflake]             `json:"public_updates_channel_id,omitempty"`
+	PreferredLocale             *Nullable[string]                `json:"preferred_locale,omitempty"`
+	Features                    []string                         `json:"features,omitempty"`
+	Description                 *Nullable[string]                `json:"description,omitempty"`
+	PremiumProgressBarEnabled   *bool                            `json:"premium_progress_bar_enabled,omitempty"`
+	SafetyAlertsChannelID       *Nullable[Snowflake]             `json:"safety_alerts_channel_id,omitempty"`
 }
 
 type GuildUpdateResponse = Guild

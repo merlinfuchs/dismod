@@ -1,18 +1,18 @@
 package distype
 
 type Sticker struct {
-	ID          Snowflake           `json:"id"`
-	PackID      Optional[string]    `json:"pack_id,omitempty"`
-	Name        string              `json:"name"`
-	Description Optional[string]    `json:"description,omitempty"`
-	Tags        string              `json:"tags"`
-	Asset       Optional[string]    `json:"asset,omitempty"`
-	Type        StickerType         `json:"type"`
-	FormatType  StickerFormatType   `json:"format_type"`
-	Available   Optional[bool]      `json:"available,omitempty"`
-	GuildID     Optional[Snowflake] `json:"guild_id,omitempty"`
-	User        Optional[User]      `json:"user,omitempty"`
-	SortValue   Optional[int]       `json:"sort_value,omitempty"`
+	ID          Snowflake         `json:"id"`
+	PackID      *string           `json:"pack_id,omitempty"`
+	Name        string            `json:"name"`
+	Description *string           `json:"description,omitempty"`
+	Tags        string            `json:"tags"`
+	Asset       *string           `json:"asset,omitempty"`
+	Type        StickerType       `json:"type"`
+	FormatType  StickerFormatType `json:"format_type"`
+	Available   *bool             `json:"available,omitempty"`
+	GuildID     *Snowflake        `json:"guild_id,omitempty"`
+	User        *User             `json:"user,omitempty"`
+	SortValue   *int              `json:"sort_value,omitempty"`
 }
 
 type StickerType int

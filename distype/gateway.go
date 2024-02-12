@@ -80,13 +80,13 @@ type HelloData struct {
 type HeartbeatData int64
 
 type IdentifyData struct {
-	Token          string                       `json:"token"`
-	Properties     ConnectionProperties         `json:"properties"`
-	Compress       Optional[bool]               `json:"compress,omitempty"`
-	LargeThreshold Optional[int]                `json:"large_threshold,omitempty"`
-	Shard          Optional[[2]int]             `json:"shard,omitempty"`
-	Presence       Optional[PresenceUpdateData] `json:"presence,omitempty"`
-	Intents        int                          `json:"intents"`
+	Token          string               `json:"token"`
+	Properties     ConnectionProperties `json:"properties"`
+	Compress       *bool                `json:"compress,omitempty"`
+	LargeThreshold *int                 `json:"large_threshold,omitempty"`
+	Shard          *[2]int              `json:"shard,omitempty"`
+	Presence       *PresenceUpdateData  `json:"presence,omitempty"`
+	Intents        int                  `json:"intents"`
 }
 
 type ConnectionProperties struct {
@@ -109,12 +109,12 @@ type PresenceUpdateData struct {
 }
 
 type RequestGuildMembersData struct {
-	GuildID   Snowflake        `json:"guild_id"`
-	Query     Optional[string] `json:"query,omitempty"`
-	Limit     int              `json:"limit"`
-	Presences Optional[bool]   `json:"presences,omitempty"`
-	UserIDs   []string         `json:"user_ids,omitempty"`
-	Nonce     Optional[string] `json:"nonce,omitempty"`
+	GuildID   Snowflake `json:"guild_id"`
+	Query     *string   `json:"query,omitempty"`
+	Limit     int       `json:"limit"`
+	Presences *bool     `json:"presences,omitempty"`
+	UserIDs   []string  `json:"user_ids,omitempty"`
+	Nonce     *string   `json:"nonce,omitempty"`
 }
 
 type SessionInvalidData bool

@@ -30,22 +30,6 @@ func (n *Nullable[T]) UnmarshalJSON(data []byte) error {
 	return json.Unmarshal(data, &n.Value)
 }
 
-type Optional[T any] *T
-
-func OptionalString(s string, valid bool) Optional[string] {
-	if !valid {
-		return nil
-	}
-	return &s
-}
-
-func OptionalNullString(s string, valid bool) Optional[Nullable[string]] {
-	if valid {
-		return &Nullable[string]{Valid: true, Value: s}
-	}
-	return &Nullable[string]{Valid: false}
-}
-
 type IntOrString struct {
 	Int    int
 	String string

@@ -3,41 +3,41 @@ package distype
 import "time"
 
 type Channel struct {
-	ID                            Snowflake                  `json:"id"`
-	Type                          ChannelType                `json:"type"`
-	GuildID                       Optional[Snowflake]        `json:"guild_id,omitempty"`
-	Position                      Optional[int]              `json:"position,omitempty"`
-	PermissionOverwrites          []PermissionOverwrite      `json:"permission_overwrites,omitempty"`
-	Name                          Optional[string]           `json:"name,omitempty"`
-	Topic                         Optional[string]           `json:"topic,omitempty"`
-	NSFW                          Optional[bool]             `json:"nsfw,omitempty"`
-	LastMessageID                 Optional[Snowflake]        `json:"last_message_id,omitempty"`
-	Bitrate                       Optional[int]              `json:"bitrate,omitempty"`
-	UserLimit                     Optional[int]              `json:"user_limit,omitempty"`
-	RateLimitPerUser              Optional[int]              `json:"rate_limit_per_user,omitempty"`
-	Recipients                    []User                     `json:"recipients,omitempty"`
-	Icon                          Optional[Nullable[string]] `json:"icon,omitempty"`
-	OwnerID                       Optional[Snowflake]        `json:"owner_id,omitempty"`
-	ApplicationID                 Optional[Snowflake]        `json:"application_id,omitempty"`
-	Managed                       Optional[bool]             `json:"managed,omitempty"`
-	ParentID                      Optional[Snowflake]        `json:"parent_id,omitempty"`
-	LastPinTimestamp              Optional[time.Time]        `json:"last_pin_timestamp,omitempty"`
-	RTCRegion                     Optional[string]           `json:"rtc_region,omitempty"`
-	VideoQualityMode              Optional[VideoQualityMode] `json:"video_quality_mode,omitempty"`
-	MessageCount                  Optional[int]              `json:"message_count,omitempty"`
-	MemberCount                   Optional[int]              `json:"member_count,omitempty"`
-	ThreadMetadata                Optional[ThreadMetadata]   `json:"thread_metadata,omitempty"`
-	Member                        Optional[ThreadMember]     `json:"member,omitempty"`
-	DefaultAutoArchive            Optional[int]              `json:"default_auto_archive_duration,omitempty"`
-	Permissions                   Optional[Permissions]      `json:"permissions,omitempty"`
-	Flags                         Optional[ChannelFlags]     `json:"flags,omitempty"`
-	TotalMessagesSent             Optional[int]              `json:"total_message_sent,omitempty"`
-	AvailableTags                 []ForumTag                 `json:"available_tags,omitempty"`
-	AppliedTags                   []Snowflake                `json:"applied_tags,omitempty"`
-	DefaultReactionEmoji          Optional[DefaultReaction]  `json:"default_reaction_emoji,omitempty"`
-	DefaultThreadRateLimitPerUser Optional[int]              `json:"default_thread_rate_limit_per_user,omitempty"`
-	DefaultSortOrder              Optional[SortOrderType]    `json:"default_sort_order,omitempty"`
-	DefaultForumLayout            Optional[ForumLayoutType]  `json:"default_forum_layout,omitempty"`
+	ID                            Snowflake             `json:"id"`
+	Type                          ChannelType           `json:"type"`
+	GuildID                       *Snowflake            `json:"guild_id,omitempty"`
+	Position                      *int                  `json:"position,omitempty"`
+	PermissionOverwrites          []PermissionOverwrite `json:"permission_overwrites,omitempty"`
+	Name                          *string               `json:"name,omitempty"`
+	Topic                         *string               `json:"topic,omitempty"`
+	NSFW                          *bool                 `json:"nsfw,omitempty"`
+	LastMessageID                 *Snowflake            `json:"last_message_id,omitempty"`
+	Bitrate                       *int                  `json:"bitrate,omitempty"`
+	UserLimit                     *int                  `json:"user_limit,omitempty"`
+	RateLimitPerUser              *int                  `json:"rate_limit_per_user,omitempty"`
+	Recipients                    []User                `json:"recipients,omitempty"`
+	Icon                          *Nullable[string]     `json:"icon,omitempty"`
+	OwnerID                       *Snowflake            `json:"owner_id,omitempty"`
+	ApplicationID                 *Snowflake            `json:"application_id,omitempty"`
+	Managed                       *bool                 `json:"managed,omitempty"`
+	ParentID                      *Snowflake            `json:"parent_id,omitempty"`
+	LastPinTimestamp              *time.Time            `json:"last_pin_timestamp,omitempty"`
+	RTCRegion                     *string               `json:"rtc_region,omitempty"`
+	VideoQualityMode              *VideoQualityMode     `json:"video_quality_mode,omitempty"`
+	MessageCount                  *int                  `json:"message_count,omitempty"`
+	MemberCount                   *int                  `json:"member_count,omitempty"`
+	ThreadMetadata                *ThreadMetadata       `json:"thread_metadata,omitempty"`
+	Member                        *ThreadMember         `json:"member,omitempty"`
+	DefaultAutoArchive            *int                  `json:"default_auto_archive_duration,omitempty"`
+	Permissions                   *Permissions          `json:"permissions,omitempty"`
+	Flags                         *ChannelFlags         `json:"flags,omitempty"`
+	TotalMessagesSent             *int                  `json:"total_message_sent,omitempty"`
+	AvailableTags                 []ForumTag            `json:"available_tags,omitempty"`
+	AppliedTags                   []Snowflake           `json:"applied_tags,omitempty"`
+	DefaultReactionEmoji          *DefaultReaction      `json:"default_reaction_emoji,omitempty"`
+	DefaultThreadRateLimitPerUser *int                  `json:"default_thread_rate_limit_per_user,omitempty"`
+	DefaultSortOrder              *SortOrderType        `json:"default_sort_order,omitempty"`
+	DefaultForumLayout            *ForumLayoutType      `json:"default_forum_layout,omitempty"`
 }
 
 type ChannelType int
@@ -97,21 +97,21 @@ type ForumTag struct {
 }
 
 type ThreadMetadata struct {
-	Archived            bool                `json:"archived"`
-	AutoArchiveDuration Optional[int]       `json:"auto_archive_duration,omitempty"`
-	ArchiveTimestamp    Optional[time.Time] `json:"archive_timestamp,omitempty"`
-	Locked              bool                `json:"locked"`
-	Invitable           Optional[bool]      `json:"invitable,omitempty"`
-	CreateTimestamp     Optional[time.Time] `json:"create_timestamp,omitempty"`
+	Archived            bool       `json:"archived"`
+	AutoArchiveDuration *int       `json:"auto_archive_duration,omitempty"`
+	ArchiveTimestamp    *time.Time `json:"archive_timestamp,omitempty"`
+	Locked              bool       `json:"locked"`
+	Invitable           *bool      `json:"invitable,omitempty"`
+	CreateTimestamp     *time.Time `json:"create_timestamp,omitempty"`
 }
 
 type ThreadMember struct {
-	ID            Optional[Snowflake] `json:"id,omitempty"`
-	UserID        Optional[Snowflake] `json:"user_id,omitempty"`
-	GuildID       Optional[Snowflake] `json:"guild_id,omitempty"`
-	JoinTimestamp time.Time           `json:"join_timestamp"`
-	Flags         int                 `json:"flags"`
-	Member        Optional[Member]    `json:"member,omitempty"`
+	ID            *Snowflake `json:"id,omitempty"`
+	UserID        *Snowflake `json:"user_id,omitempty"`
+	GuildID       *Snowflake `json:"guild_id,omitempty"`
+	JoinTimestamp time.Time  `json:"join_timestamp"`
+	Flags         int        `json:"flags"`
+	Member        *Member    `json:"member,omitempty"`
 }
 
 type DefaultReaction struct {
@@ -163,9 +163,9 @@ type ThreadMembersUpdateEvent struct {
 }
 
 type ChannelPinsUpdateEvent struct {
-	GuildID          Optional[Snowflake] `json:"guild_id,omitempty"`
-	ChannelID        Snowflake           `json:"channel_id"`
-	LastPinTimestamp Optional[time.Time] `json:"last_pin_timestamp,omitempty"`
+	GuildID          *Snowflake `json:"guild_id,omitempty"`
+	ChannelID        Snowflake  `json:"channel_id"`
+	LastPinTimestamp *time.Time `json:"last_pin_timestamp,omitempty"`
 }
 
 type ChannelGetRequest struct {
@@ -185,11 +185,11 @@ type ChannelDeleteRequest struct {
 type ChannelDeleteResponse = Channel
 
 type ChannelEditPermissionsRequest struct {
-	ChannelID   Snowflake                       `json:"channel_id"`
-	OverwriteID Snowflake                       `json:"overwrite_id"`
-	Allow       Optional[Nullable[Permissions]] `json:"allow,omitempty"`
-	Deny        Optional[Nullable[Permissions]] `json:"deny,omitempty"`
-	Type        PermissionOverwriteType         `json:"type,omitempty"`
+	ChannelID   Snowflake               `json:"channel_id"`
+	OverwriteID Snowflake               `json:"overwrite_id"`
+	Allow       *Nullable[Permissions]  `json:"allow,omitempty"`
+	Deny        *Nullable[Permissions]  `json:"deny,omitempty"`
+	Type        PermissionOverwriteType `json:"type,omitempty"`
 }
 
 type ChannelEditPermissionsResponse struct{}
@@ -202,33 +202,33 @@ type ChannelDeletePermissionsRequest struct {
 type ChannelDeletePermissionsResponse struct{}
 
 type ThreadStartFromMessageRequest struct {
-	ChannelID           Snowflake           `json:"channel_id"`
-	MessageID           Snowflake           `json:"message_id"`
-	Name                string              `json:"name"`
-	AutoArchiveDuration Optional[time.Time] `json:"auto_archive_duration,omitempty"`
-	RateLimitPerUser    Optional[int]       `json:"rate_limit"`
+	ChannelID           Snowflake  `json:"channel_id"`
+	MessageID           Snowflake  `json:"message_id"`
+	Name                string     `json:"name"`
+	AutoArchiveDuration *time.Time `json:"auto_archive_duration,omitempty"`
+	RateLimitPerUser    *int       `json:"rate_limit"`
 }
 
 type ThreadStartFromMessageResponse = Channel
 
 type ThreadStartWithoutMessageRequest struct {
-	ChannelID           Snowflake             `json:"channel_id"`
-	Name                string                `json:"name"`
-	AutoArchiveDuration Optional[time.Time]   `json:"auto_archive_duration,omitempty"`
-	Type                Optional[ChannelType] `json:"type,omitempty"`
-	Invitable           Optional[bool]        `json:"invitable,omitempty"`
-	RateLimitPerUser    Optional[int]         `json:"rate_limit"`
+	ChannelID           Snowflake    `json:"channel_id"`
+	Name                string       `json:"name"`
+	AutoArchiveDuration *time.Time   `json:"auto_archive_duration,omitempty"`
+	Type                *ChannelType `json:"type,omitempty"`
+	Invitable           *bool        `json:"invitable,omitempty"`
+	RateLimitPerUser    *int         `json:"rate_limit"`
 }
 
 type ThreadStartWithoutMessageResponse = Channel
 
 type ThreadStartInForumRequest struct {
-	ChannelID           Snowflake                     `json:"channel_id"`
-	Name                string                        `json:"name"`
-	AutoArchiveDuration Optional[time.Time]           `json:"auto_archive_duration,omitempty"`
-	RateLimitPerUser    Optional[int]                 `json:"rate_limit"`
-	Message             Optional[MessageCreateParams] `json:"message,omitempty"`
-	AppliedTags         []Snowflake                   `json:"applied_tags,omitempty"`
+	ChannelID           Snowflake            `json:"channel_id"`
+	Name                string               `json:"name"`
+	AutoArchiveDuration *time.Time           `json:"auto_archive_duration,omitempty"`
+	RateLimitPerUser    *int                 `json:"rate_limit"`
+	Message             *MessageCreateParams `json:"message,omitempty"`
+	AppliedTags         []Snowflake          `json:"applied_tags,omitempty"`
 }
 
 type ThreadStartInForumResponse = Channel
@@ -267,18 +267,18 @@ type ThreadMemberGetRequest struct {
 type ThreadMemberGetResponse = ThreadMember
 
 type ThreadMemberListRequest struct {
-	ChannelID  Snowflake           `json:"channel_id"`
-	WithMember Optional[bool]      `json:"with_member,omitempty"`
-	After      Optional[Snowflake] `json:"after,omitempty"`
-	Limit      Optional[int]       `json:"limit,omitempty"`
+	ChannelID  Snowflake  `json:"channel_id"`
+	WithMember *bool      `json:"with_member,omitempty"`
+	After      *Snowflake `json:"after,omitempty"`
+	Limit      *int       `json:"limit,omitempty"`
 }
 
 type ThreadMemberListResponse = []ThreadMember
 
 type ThreadListPublicArchivedRequest struct {
-	ChannelID Snowflake           `json:"channel_id"`
-	Before    Optional[time.Time] `json:"before,omitempty"`
-	Limit     Optional[int]       `json:"limit,omitempty"`
+	ChannelID Snowflake  `json:"channel_id"`
+	Before    *time.Time `json:"before,omitempty"`
+	Limit     *int       `json:"limit,omitempty"`
 }
 
 type ThreadListPublicArchivedResponse struct {
@@ -288,9 +288,9 @@ type ThreadListPublicArchivedResponse struct {
 }
 
 type ThreadListPrivateArchivedRequest struct {
-	ChannelID Snowflake           `json:"channel_id"`
-	Before    Optional[time.Time] `json:"before,omitempty"`
-	Limit     Optional[int]       `json:"limit,omitempty"`
+	ChannelID Snowflake  `json:"channel_id"`
+	Before    *time.Time `json:"before,omitempty"`
+	Limit     *int       `json:"limit,omitempty"`
 }
 
 type ThreadListPrivateArchivedResponse struct {
@@ -300,9 +300,9 @@ type ThreadListPrivateArchivedResponse struct {
 }
 
 type ThreadListJoinedPrivateArchivedRequest struct {
-	ChannelID Snowflake           `json:"channel_id"`
-	Before    Optional[time.Time] `json:"before,omitempty"`
-	Limit     Optional[int]       `json:"limit,omitempty"`
+	ChannelID Snowflake  `json:"channel_id"`
+	Before    *time.Time `json:"before,omitempty"`
+	Limit     *int       `json:"limit,omitempty"`
 }
 
 type ThreadListJoinedPrivateArchivedResponse struct {
@@ -324,10 +324,10 @@ type GuildChannelCreateResponse = Channel
 type GuildChannelModifyPositionsRequest = []GuildChannelModifyPositionsEntry
 
 type GuildChannelModifyPositionsEntry struct {
-	ID              Snowflake           `json:"id"`
-	Position        Optional[int]       `json:"position"`
-	LockPermissions Optional[bool]      `json:"lock_permissions"`
-	ParentID        Optional[Snowflake] `json:"parent_id"`
+	ID              Snowflake  `json:"id"`
+	Position        *int       `json:"position,omitempty"`
+	LockPermissions *bool      `json:"lock_permissions,omitempty"`
+	ParentID        *Snowflake `json:"parent_id,omitempty"`
 }
 
 type GuildChannelModifyPositionsResponse struct{}

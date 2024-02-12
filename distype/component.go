@@ -90,12 +90,12 @@ func (r *ActionRow) UnmarshalJSON(data []byte) error {
 }
 
 type Button struct {
-	Style    ButtonStyle      `json:"style"`
-	Label    Optional[string] `json:"label,omitempty"`
-	Emoji    Optional[Emoji]  `json:"emoji,omitempty"`
-	CustomID Optional[string] `json:"custom_id,omitempty"`
-	URL      Optional[string] `json:"url,omitempty"`
-	Disabled Optional[bool]   `json:"disabled,omitempty"`
+	Style    ButtonStyle `json:"style"`
+	Label    *string     `json:"label,omitempty"`
+	Emoji    *Emoji      `json:"emoji,omitempty"`
+	CustomID *string     `json:"custom_id,omitempty"`
+	URL      *string     `json:"url,omitempty"`
+	Disabled *bool       `json:"disabled,omitempty"`
 }
 
 func (Button) Type() MessageComponentType {
@@ -133,11 +133,11 @@ type SelectMenu struct {
 	CustomID      string               `json:"custom_id"`
 	Options       []SelectOption       `json:"options,omitempty"`
 	ChannelTypes  []ChannelType        `json:"channel_types,omitempty"`
-	Placeholder   Optional[string]     `json:"placeholder,omitempty"`
+	Placeholder   *string              `json:"placeholder,omitempty"`
 	DefaultValues []SelectDefaultValue `json:"default_values,omitempty"`
-	MinValues     Optional[int]        `json:"min_values,omitempty"`
-	MaxValues     Optional[int]        `json:"max_values,omitempty"`
-	Disabled      Optional[bool]       `json:"disabled,omitempty"`
+	MinValues     *int                 `json:"min_values,omitempty"`
+	MaxValues     *int                 `json:"max_values,omitempty"`
+	Disabled      *bool                `json:"disabled,omitempty"`
 }
 
 func (s SelectMenu) Type() MessageComponentType {
@@ -167,11 +167,11 @@ const (
 )
 
 type SelectOption struct {
-	Label       string           `json:"label"`
-	Value       string           `json:"value"`
-	Description Optional[string] `json:"description,omitempty"`
-	Emoji       Optional[Emoji]  `json:"emoji,omitempty"`
-	Default     Optional[bool]   `json:"default,omitempty"`
+	Label       string  `json:"label"`
+	Value       string  `json:"value"`
+	Description *string `json:"description,omitempty"`
+	Emoji       *Emoji  `json:"emoji,omitempty"`
+	Default     *bool   `json:"default,omitempty"`
 }
 
 type SelectDefaultValue struct {
@@ -188,14 +188,14 @@ const (
 )
 
 type TextInput struct {
-	CustomID    string           `json:"custom_id"`
-	Style       TextInputStyle   `json:"style"`
-	Label       string           `json:"label"`
-	MinLength   Optional[int]    `json:"min_length,omitempty"`
-	MaxLength   Optional[int]    `json:"max_length,omitempty"`
-	Required    Optional[bool]   `json:"required,omitempty"`
-	Value       Optional[string] `json:"value,omitempty"`
-	Placeholder Optional[string] `json:"placeholder,omitempty"`
+	CustomID    string         `json:"custom_id"`
+	Style       TextInputStyle `json:"style"`
+	Label       string         `json:"label"`
+	MinLength   *int           `json:"min_length,omitempty"`
+	MaxLength   *int           `json:"max_length,omitempty"`
+	Required    *bool          `json:"required,omitempty"`
+	Value       *string        `json:"value,omitempty"`
+	Placeholder *string        `json:"placeholder,omitempty"`
 }
 
 func (TextInput) Type() MessageComponentType {

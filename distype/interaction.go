@@ -3,22 +3,22 @@ package distype
 import "encoding/json"
 
 type Interaction struct {
-	ID             Snowflake           `json:"id"`
-	ApplicationID  Snowflake           `json:"application_id"`
-	Type           InteractionType     `json:"type"`
-	Data           InteractionData     `json:"data,omitempty"`
-	GuildID        Optional[Snowflake] `json:"guild_id,omitempty"`
-	Channel        Optional[Channel]   `json:"channel,omitempty"`
-	ChannelID      Optional[Snowflake] `json:"channel_id,omitempty"`
-	Member         Optional[Member]    `json:"member,omitempty"`
-	User           Optional[User]      `json:"user,omitempty"`
-	Token          string              `json:"token"`
-	Version        int                 `json:"version"`
-	Message        Optional[Message]   `json:"message,omitempty"`
-	AppPermissions Optional[string]    `json:"app_permissions,omitempty"`
-	Locale         Optional[string]    `json:"locale,omitempty"`
-	GuildLocale    Optional[string]    `json:"guild_locale,omitempty"`
-	Entitlements   []Entitlement       `json:"entitlements,omitempty"`
+	ID             Snowflake       `json:"id"`
+	ApplicationID  Snowflake       `json:"application_id"`
+	Type           InteractionType `json:"type"`
+	Data           InteractionData `json:"data,omitempty"`
+	GuildID        *Snowflake      `json:"guild_id,omitempty"`
+	Channel        *Channel        `json:"channel,omitempty"`
+	ChannelID      *Snowflake      `json:"channel_id,omitempty"`
+	Member         *Member         `json:"member,omitempty"`
+	User           *User           `json:"user,omitempty"`
+	Token          string          `json:"token"`
+	Version        int             `json:"version"`
+	Message        *Message        `json:"message,omitempty"`
+	AppPermissions *string         `json:"app_permissions,omitempty"`
+	Locale         *string         `json:"locale,omitempty"`
+	GuildLocale    *string         `json:"guild_locale,omitempty"`
+	Entitlements   []Entitlement   `json:"entitlements,omitempty"`
 }
 
 type interaction Interaction
@@ -81,10 +81,10 @@ type ApplicationCommandData struct {
 	ID       Snowflake                  `json:"id"`
 	Name     string                     `json:"name"`
 	Type     ApplicationCommandType     `json:"type"`
-	Resolved Optional[ResolvedData]     `json:"resolved,omitempty"`
+	Resolved *ResolvedData              `json:"resolved,omitempty"`
 	Options  []ApplicationCommandOption `json:"options,omitempty"`
-	GuildID  Optional[Snowflake]        `json:"guild_id,omitempty"`
-	TargetID Optional[Snowflake]        `json:"target_id,omitempty"`
+	GuildID  *Snowflake                 `json:"guild_id,omitempty"`
+	TargetID *Snowflake                 `json:"target_id,omitempty"`
 }
 
 func (ApplicationCommandData) InteractionType() InteractionType {
@@ -102,9 +102,9 @@ const (
 type ApplicationCommandOption struct {
 	Name    string                       `json:"name"`
 	Type    ApplicationCommandOptionType `json:"type"`
-	Value   Optional[interface{}]        `json:"value,omitempty"`
+	Value   *interface{}                 `json:"value,omitempty"`
 	Options []ApplicationCommandOption   `json:"options,omitempty"`
-	Focused Optional[bool]               `json:"focused,omitempty"`
+	Focused *bool                        `json:"focused,omitempty"`
 }
 
 type ApplicationCommandOptionType int
@@ -124,10 +124,10 @@ const (
 )
 
 type MessageComponentData struct {
-	CustomID      string                 `json:"custom_id"`
-	ComponentType MessageComponentType   `json:"component_type"`
-	Values        []string               `json:"values,omitempty"`
-	Resolved      Optional[ResolvedData] `json:"resolved,omitempty"`
+	CustomID      string               `json:"custom_id"`
+	ComponentType MessageComponentType `json:"component_type"`
+	Values        []string             `json:"values,omitempty"`
+	Resolved      *ResolvedData        `json:"resolved,omitempty"`
 }
 
 func (MessageComponentData) InteractionType() InteractionType {

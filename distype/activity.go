@@ -1,21 +1,21 @@
 package distype
 
 type Activity struct {
-	Name          string                       `json:"name"`
-	Type          ActivityType                 `json:"type"`
-	URL           Optional[Nullable[string]]   `json:"url,omitempty"`
-	CreatedAt     UnixTimestamp                `json:"created_at"`
-	Timestamps    Optional[ActivityTimestamps] `json:"timestamps,omitempty"`
-	ApplicationID Optional[Snowflake]          `json:"application_id,omitempty"`
-	Details       Optional[string]             `json:"details,omitempty"`
-	State         Optional[string]             `json:"state,omitempty"`
-	Emoji         Optional[ActivityEmoji]      `json:"emoji,omitempty"`
-	Party         Optional[ActivityParty]      `json:"party,omitempty"`
-	Assets        Optional[ActivityAssets]     `json:"assets,omitempty"`
-	Secrets       Optional[ActivitySecrets]    `json:"secrets,omitempty"`
-	Instance      Optional[bool]               `json:"instance,omitempty"`
-	Flags         Optional[ActivityFlags]      `json:"flags,omitempty"`
-	Buttons       []ActivityButton             `json:"buttons,omitempty"`
+	Name          string              `json:"name"`
+	Type          ActivityType        `json:"type"`
+	URL           *Nullable[string]   `json:"url,omitempty"`
+	CreatedAt     UnixTimestamp       `json:"created_at"`
+	Timestamps    *ActivityTimestamps `json:"timestamps,omitempty"`
+	ApplicationID *Snowflake          `json:"application_id,omitempty"`
+	Details       *string             `json:"details,omitempty"`
+	State         *string             `json:"state,omitempty"`
+	Emoji         *ActivityEmoji      `json:"emoji,omitempty"`
+	Party         *ActivityParty      `json:"party,omitempty"`
+	Assets        *ActivityAssets     `json:"assets,omitempty"`
+	Secrets       *ActivitySecrets    `json:"secrets,omitempty"`
+	Instance      *bool               `json:"instance,omitempty"`
+	Flags         *ActivityFlags      `json:"flags,omitempty"`
+	Buttons       []ActivityButton    `json:"buttons,omitempty"`
 }
 
 type ActivityType int
@@ -30,32 +30,32 @@ const (
 )
 
 type ActivityTimestamps struct {
-	Start Optional[UnixTimestamp] `json:"start,omitempty"`
-	End   Optional[UnixTimestamp] `json:"end,omitempty"`
+	Start *UnixTimestamp `json:"start,omitempty"`
+	End   *UnixTimestamp `json:"end,omitempty"`
 }
 
 type ActivityEmoji struct {
-	Name     string              `json:"name"`
-	ID       Optional[Snowflake] `json:"id,omitempty"`
-	Animated Optional[bool]      `json:"animated,omitempty"`
+	Name     string     `json:"name"`
+	ID       *Snowflake `json:"id,omitempty"`
+	Animated *bool      `json:"animated,omitempty"`
 }
 
 type ActivityParty struct {
-	ID   Optional[Snowflake] `json:"id,omitempty"`
-	Size [2]int              `json:"size"`
+	ID   *Snowflake `json:"id,omitempty"`
+	Size [2]int     `json:"size"`
 }
 
 type ActivityAssets struct {
-	LargeImage Optional[string] `json:"large_image,omitempty"`
-	LargeText  Optional[string] `json:"large_text,omitempty"`
-	SmallImage Optional[string] `json:"small_image,omitempty"`
-	SmallText  Optional[string] `json:"small_text,omitempty"`
+	LargeImage *string `json:"large_image,omitempty"`
+	LargeText  *string `json:"large_text,omitempty"`
+	SmallImage *string `json:"small_image,omitempty"`
+	SmallText  *string `json:"small_text,omitempty"`
 }
 
 type ActivitySecrets struct {
-	Join     Optional[string] `json:"join,omitempty"`
-	Spectate Optional[string] `json:"spectate,omitempty"`
-	Match    Optional[string] `json:"match,omitempty"`
+	Join     *string `json:"join,omitempty"`
+	Spectate *string `json:"spectate,omitempty"`
+	Match    *string `json:"match,omitempty"`
 }
 
 type ActivityFlags int

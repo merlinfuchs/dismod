@@ -6,23 +6,23 @@ import (
 )
 
 type User struct {
-	ID               Snowflake                  `json:"id"`
-	Username         string                     `json:"username"`
-	Discriminator    string                     `json:"discriminator"`
-	GlobalName       Nullable[string]           `json:"global_name"`
-	Avatar           Nullable[string]           `json:"avatar"`
-	Bot              Optional[bool]             `json:"bot,omitempty"`
-	System           Optional[bool]             `json:"system,omitempty"`
-	MFAEnabled       Optional[bool]             `json:"mfa_enabled,omitempty"`
-	Banner           Optional[Nullable[string]] `json:"banner,omitempty"`
-	AccentColor      Optional[Nullable[int]]    `json:"accent_color,omitempty"`
-	Locale           Optional[string]           `json:"locale,omitempty"`
-	Verified         Optional[bool]             `json:"verified,omitempty"`
-	Email            Optional[Nullable[string]] `json:"email,omitempty"`
-	Flags            Optional[UserFlags]        `json:"flags,omitempty"`
-	PremiumType      Optional[int]              `json:"premium_type,omitempty"`
-	PublicFlags      Optional[UserFlags]        `json:"public_flags,omitempty"`
-	AvatarDecoration Optional[Nullable[string]] `json:"avatar_decoration,omitempty"`
+	ID               Snowflake         `json:"id"`
+	Username         string            `json:"username"`
+	Discriminator    string            `json:"discriminator"`
+	GlobalName       Nullable[string]  `json:"global_name"`
+	Avatar           Nullable[string]  `json:"avatar"`
+	Bot              *bool             `json:"bot,omitempty"`
+	System           *bool             `json:"system,omitempty"`
+	MFAEnabled       *bool             `json:"mfa_enabled,omitempty"`
+	Banner           *Nullable[string] `json:"banner,omitempty"`
+	AccentColor      *Nullable[int]    `json:"accent_color,omitempty"`
+	Locale           *string           `json:"locale,omitempty"`
+	Verified         *bool             `json:"verified,omitempty"`
+	Email            *Nullable[string] `json:"email,omitempty"`
+	Flags            *UserFlags        `json:"flags,omitempty"`
+	PremiumType      *int              `json:"premium_type,omitempty"`
+	PublicFlags      *UserFlags        `json:"public_flags,omitempty"`
+	AvatarDecoration *Nullable[string] `json:"avatar_decoration,omitempty"`
 }
 
 func (u User) AvatarURL() string {

@@ -11,9 +11,9 @@ const (
 )
 
 type ClientStatus struct {
-	Desktop Optional[Status] `json:"desktop,omitempty"`
-	Mobile  Optional[Status] `json:"mobile,omitempty"`
-	Web     Optional[Status] `json:"web,omitempty"`
+	Desktop *Status `json:"desktop,omitempty"`
+	Mobile  *Status `json:"mobile,omitempty"`
+	Web     *Status `json:"web,omitempty"`
 }
 
 type PresenceUpdateEvent struct {

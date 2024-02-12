@@ -5,14 +5,14 @@ type Webhook struct {
 	Type          WebhookType         `json:"type"`
 	GuildID       Nullable[Snowflake] `json:"guild_id"`
 	ChannelID     Nullable[Snowflake] `json:"channel_id"`
-	User          Optional[User]      `json:"user,omitempty"`
+	User          *User               `json:"user,omitempty"`
 	Name          Nullable[string]    `json:"name"`
 	Avatar        Nullable[string]    `json:"avatar"`
-	Token         Optional[string]    `json:"token,omitempty"`
+	Token         *string             `json:"token,omitempty"`
 	ApplicationID Nullable[Snowflake] `json:"application_id"`
-	SourceGuild   Optional[Guild]     `json:"source_guild,omitempty"`
-	SoureChannel  Optional[Channel]   `json:"source_channel,omitempty"`
-	URL           Optional[string]    `json:"url,omitempty"`
+	SourceGuild   *Guild              `json:"source_guild,omitempty"`
+	SoureChannel  *Channel            `json:"source_channel,omitempty"`
+	URL           *string             `json:"url,omitempty"`
 }
 
 type WebhookType int
@@ -29,9 +29,9 @@ type WebhooksUpdateEvent struct {
 }
 
 type WebhookCreateRequest struct {
-	ChannelID Snowflake                  `json:"channel_id"`
-	Name      string                     `json:"name"`
-	Avatar    Optional[Nullable[string]] `json:"avatar,omitempty"`
+	ChannelID Snowflake         `json:"channel_id"`
+	Name      string            `json:"name"`
+	Avatar    *Nullable[string] `json:"avatar,omitempty"`
 }
 
 type WebhookCreateResponse = Webhook
@@ -62,20 +62,20 @@ type WebhookGetWithTokenRequest struct {
 type WebhookGetWithTokenResponse = Webhook
 
 type WebhookModifyRequest struct {
-	WebhookID Snowflake                  `json:"webhook_id"`
-	Name      Optional[string]           `json:"name,omitempty"`
-	Avatar    Optional[Nullable[string]] `json:"avatar,omitempty"`
-	ChannelID Optional[Snowflake]        `json:"channel_id,omitempty"`
+	WebhookID Snowflake         `json:"webhook_id"`
+	Name      *string           `json:"name,omitempty"`
+	Avatar    *Nullable[string] `json:"avatar,omitempty"`
+	ChannelID *Snowflake        `json:"channel_id,omitempty"`
 }
 
 type WebhookModifyResponse = Webhook
 
 type WebhookModifyWithTokenRequest struct {
-	WebhookID    Snowflake                  `json:"webhook_id"`
-	WebhookToken string                     `json:"webhook_token"`
-	Name         Optional[string]           `json:"name,omitempty"`
-	Avatar       Optional[Nullable[string]] `json:"avatar,omitempty"`
-	ChannelID    Optional[Snowflake]        `json:"channel_id,omitempty"`
+	WebhookID    Snowflake         `json:"webhook_id"`
+	WebhookToken string            `json:"webhook_token"`
+	Name         *string           `json:"name,omitempty"`
+	Avatar       *Nullable[string] `json:"avatar,omitempty"`
+	ChannelID    *Snowflake        `json:"channel_id,omitempty"`
 }
 
 type WebhookModifyWithTokenResponse = Webhook
@@ -94,14 +94,14 @@ type WebhookDeleteWithTokenRequest struct {
 type WebhookDeleteWithTokenResponse struct{}
 
 type WebhookExecuteRequest struct {
-	WebhookID    Snowflake           `json:"webhook_id"`
-	WebhookToken string              `json:"webhook_token"`
-	Wait         Optional[bool]      `json:"wait,omitempty"`
-	ThreadID     Optional[Snowflake] `json:"thread_id,omitempty"`
+	WebhookID    Snowflake  `json:"webhook_id"`
+	WebhookToken string     `json:"webhook_token"`
+	Wait         *bool      `json:"wait,omitempty"`
+	ThreadID     *Snowflake `json:"thread_id,omitempty"`
 	MessageCreateParams
 }
 
-type WebhookExecuteResponse = Optional[Message]
+type WebhookExecuteResponse = *Message
 
 type WebhookMessageGetRequest struct {
 	WebhookID    Snowflake `json:"webhook_id"`

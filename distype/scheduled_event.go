@@ -6,9 +6,9 @@ type ScheduledEvent struct {
 	ID                 Snowflake                              `json:"id"`
 	GuildID            Snowflake                              `json:"guild_id"`
 	ChannelID          Nullable[Snowflake]                    `json:"channel_id"`
-	CreatorID          Optional[Nullable[Snowflake]]          `json:"creator_id,omitempty"`
+	CreatorID          *Nullable[Snowflake]                   `json:"creator_id,omitempty"`
 	Name               string                                 `json:"name"`
-	Desc               Optional[string]                       `json:"description,omitempty"`
+	Desc               *string                                `json:"description,omitempty"`
 	ScheduledStartTime time.Time                              `json:"scheduled_start_time"`
 	ScheduledEndTime   Nullable[time.Time]                    `json:"scheduled_end_time"`
 	PrivacyLevel       PrivacyLevel                           `json:"privacy_level"`
@@ -16,9 +16,9 @@ type ScheduledEvent struct {
 	EntityType         ScheduledEventEntityType               `json:"entity_type"`
 	EntityID           Nullable[Snowflake]                    `json:"entity_id"`
 	EntityMetadata     Nullable[ScheduledEventEntityMetadata] `json:"entity_metadata"`
-	Creator            Optional[User]                         `json:"creator,omitempty"`
-	UserCount          Optional[int]                          `json:"user_count,omitempty"`
-	Image              Optional[Nullable[string]]             `json:"image,omitempty"`
+	Creator            *User                                  `json:"creator,omitempty"`
+	UserCount          *int                                   `json:"user_count,omitempty"`
+	Image              *Nullable[string]                      `json:"image,omitempty"`
 }
 
 type ScheduledEventStatus int
@@ -39,13 +39,13 @@ const (
 )
 
 type ScheduledEventEntityMetadata struct {
-	Location Optional[string] `json:"location,omitempty"`
+	Location *string `json:"location,omitempty"`
 }
 
 type ScheduledEventUser struct {
-	GuildScheduledEventID Snowflake        `json:"guild_scheduled_event_id"`
-	User                  User             `json:"user"`
-	Member                Optional[Member] `json:"member,omitempty"`
+	GuildScheduledEventID Snowflake `json:"guild_scheduled_event_id"`
+	User                  User      `json:"user"`
+	Member                *Member   `json:"member,omitempty"`
 }
 
 type ScheduledEventCreateEvent = ScheduledEvent
@@ -67,40 +67,40 @@ type ScheduledEventUserRemoveEvent struct {
 }
 
 type GuildScheduledEventListRequest struct {
-	GuildID       Snowflake      `json:"guild_id"`
-	WithUserCount Optional[bool] `json:"with_user_count,omitempty"`
+	GuildID       Snowflake `json:"guild_id"`
+	WithUserCount *bool     `json:"with_user_count,omitempty"`
 }
 
 type GuildScheduledEventListResponse = []ScheduledEvent
 
 type ScheduledEventCreateRequest struct {
-	GuildID            Snowflake                              `json:"guild_id"`
-	ChannelID          Optional[Snowflake]                    `json:"channel_id,omitempty"`
-	Name               string                                 `json:"name"`
-	EntityMetadata     Optional[ScheduledEventEntityMetadata] `json:"entity_metadata,omitempty"`
-	PrivacyLevel       Optional[PrivacyLevel]                 `json:"privacy_level,omitempty"`
-	ScheduledStartTime time.Time                              `json:"scheduled_start_time"`
-	ScheduledEndTime   Optional[time.Time]                    `json:"scheduled_end_time,omitempty"`
-	Description        Optional[string]                       `json:"description,omitempty"`
-	EntityType         ScheduledEventEntityType               `json:"entity_type"`
-	Image              Optional[Nullable[string]]             `json:"image,omitempty"`
+	GuildID            Snowflake                     `json:"guild_id"`
+	ChannelID          *Snowflake                    `json:"channel_id,omitempty"`
+	Name               string                        `json:"name"`
+	EntityMetadata     *ScheduledEventEntityMetadata `json:"entity_metadata,omitempty"`
+	PrivacyLevel       *PrivacyLevel                 `json:"privacy_level,omitempty"`
+	ScheduledStartTime time.Time                     `json:"scheduled_start_time"`
+	ScheduledEndTime   *time.Time                    `json:"scheduled_end_time,omitempty"`
+	Description        *string                       `json:"description,omitempty"`
+	EntityType         ScheduledEventEntityType      `json:"entity_type"`
+	Image              *Nullable[string]             `json:"image,omitempty"`
 }
 
 type ScheduledEventCreateResponse = ScheduledEvent
 
 type ScheduledEventModifyRequest struct {
-	GuildID               Snowflake                              `json:"guild_id"`
-	GuildScheduledEventID Snowflake                              `json:"guild_scheduled_event_id"`
-	ChannelID             Optional[Snowflake]                    `json:"channel_id,omitempty"`
-	Name                  Optional[string]                       `json:"name,omitempty"`
-	EntityMetadata        Optional[ScheduledEventEntityMetadata] `json:"entity_metadata,omitempty"`
-	PrivacyLevel          Optional[PrivacyLevel]                 `json:"privacy_level,omitempty"`
-	ScheduledStartTime    Optional[time.Time]                    `json:"scheduled_start_time,omitempty"`
-	ScheduledEndTime      Optional[time.Time]                    `json:"scheduled_end_time,omitempty"`
-	Description           Optional[string]                       `json:"description,omitempty"`
-	Image                 Optional[Nullable[string]]             `json:"image,omitempty"`
-	Status                Optional[ScheduledEventStatus]         `json:"status,omitempty"`
-	EntityType            Optional[ScheduledEventEntityType]     `json:"entity_type,omitempty"`
+	GuildID               Snowflake                     `json:"guild_id"`
+	GuildScheduledEventID Snowflake                     `json:"guild_scheduled_event_id"`
+	ChannelID             *Snowflake                    `json:"channel_id,omitempty"`
+	Name                  *string                       `json:"name,omitempty"`
+	EntityMetadata        *ScheduledEventEntityMetadata `json:"entity_metadata,omitempty"`
+	PrivacyLevel          *PrivacyLevel                 `json:"privacy_level,omitempty"`
+	ScheduledStartTime    *time.Time                    `json:"scheduled_start_time,omitempty"`
+	ScheduledEndTime      *time.Time                    `json:"scheduled_end_time,omitempty"`
+	Description           *string                       `json:"description,omitempty"`
+	Image                 *Nullable[string]             `json:"image,omitempty"`
+	Status                *ScheduledEventStatus         `json:"status,omitempty"`
+	EntityType            *ScheduledEventEntityType     `json:"entity_type,omitempty"`
 }
 
 type ScheduledEventModifyResponse = ScheduledEvent
@@ -120,12 +120,12 @@ type ScheduledEventGetRequest struct {
 type ScheduledEventGetResponse = ScheduledEvent
 
 type ScheduledEventUserListRequest struct {
-	GuildID               Snowflake           `json:"guild_id"`
-	GuildScheduledEventID Snowflake           `json:"guild_scheduled_event_id"`
-	Limit                 Optional[int]       `json:"limit,omitempty"`
-	WithMember            Optional[bool]      `json:"with_member,omitempty"`
-	Before                Optional[Snowflake] `json:"before,omitempty"`
-	After                 Optional[Snowflake] `json:"after,omitempty"`
+	GuildID               Snowflake  `json:"guild_id"`
+	GuildScheduledEventID Snowflake  `json:"guild_scheduled_event_id"`
+	Limit                 *int       `json:"limit,omitempty"`
+	WithMember            *bool      `json:"with_member,omitempty"`
+	Before                *Snowflake `json:"before,omitempty"`
+	After                 *Snowflake `json:"after,omitempty"`
 }
 
 type ScheduledEventUserListResponse = []ScheduledEventUser
