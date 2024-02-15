@@ -78,50 +78,26 @@ const (
 )
 
 type ApplicationCommandData struct {
-	ID       Snowflake                  `json:"id"`
-	Name     string                     `json:"name"`
-	Type     ApplicationCommandType     `json:"type"`
-	Resolved *ResolvedData              `json:"resolved,omitempty"`
-	Options  []ApplicationCommandOption `json:"options,omitempty"`
-	GuildID  *Snowflake                 `json:"guild_id,omitempty"`
-	TargetID *Snowflake                 `json:"target_id,omitempty"`
+	ID       Snowflake                      `json:"id"`
+	Name     string                         `json:"name"`
+	Type     ApplicationCommandType         `json:"type"`
+	Resolved *ResolvedData                  `json:"resolved,omitempty"`
+	Options  []ApplicationCommandDataOption `json:"options,omitempty"`
+	GuildID  *Snowflake                     `json:"guild_id,omitempty"`
+	TargetID *Snowflake                     `json:"target_id,omitempty"`
 }
 
 func (ApplicationCommandData) InteractionType() InteractionType {
 	return InteractionTypeApplicationCommand
 }
 
-type ApplicationCommandType int
-
-const (
-	ApplicationCommandTypeChatInput ApplicationCommandType = 1
-	ApplicationCommandTypeUser      ApplicationCommandType = 2
-	ApplicationCommandTypeMessage   ApplicationCommandType = 3
-)
-
-type ApplicationCommandOption struct {
-	Name    string                       `json:"name"`
-	Type    ApplicationCommandOptionType `json:"type"`
-	Value   *interface{}                 `json:"value,omitempty"`
-	Options []ApplicationCommandOption   `json:"options,omitempty"`
-	Focused *bool                        `json:"focused,omitempty"`
+type ApplicationCommandDataOption struct {
+	Name    string                         `json:"name"`
+	Type    ApplicationCommandOptionType   `json:"type"`
+	Value   *interface{}                   `json:"value,omitempty"`
+	Options []ApplicationCommandDataOption `json:"options,omitempty"`
+	Focused *bool                          `json:"focused,omitempty"`
 }
-
-type ApplicationCommandOptionType int
-
-const (
-	ApplicationCommandOptionTypeSubCommand      ApplicationCommandOptionType = 1
-	ApplicationCommandOptionTypeSubCommandGroup ApplicationCommandOptionType = 2
-	ApplicationCommandOptionTypeString          ApplicationCommandOptionType = 3
-	ApplicationCommandOptionTypeInteger         ApplicationCommandOptionType = 4
-	ApplicationCommandOptionTypeBoolean         ApplicationCommandOptionType = 5
-	ApplicationCommandOptionTypeUser            ApplicationCommandOptionType = 6
-	ApplicationCommandOptionTypeChannel         ApplicationCommandOptionType = 7
-	ApplicationCommandOptionTypeRole            ApplicationCommandOptionType = 8
-	ApplicationCommandOptionTypeMentionable     ApplicationCommandOptionType = 9
-	ApplicationCommandOptionTypeNumber          ApplicationCommandOptionType = 10
-	ApplicationCommandOptionTypeAttachment      ApplicationCommandOptionType = 11
-)
 
 type MessageComponentData struct {
 	CustomID      string               `json:"custom_id"`
@@ -136,7 +112,7 @@ func (MessageComponentData) InteractionType() InteractionType {
 
 type ModalSubmitData struct {
 	CustomID   string             `json:"custom_id"`
-	Components []MessageComponent `json:"components"` // TODO: implement unmarshalJSON for MessageComponent
+	Components []MessageComponent `json:"components"`
 }
 
 func (d *ModalSubmitData) UnmarshalJSON(data []byte) error {
