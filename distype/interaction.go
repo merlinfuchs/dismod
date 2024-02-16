@@ -94,7 +94,7 @@ func (ApplicationCommandData) InteractionType() InteractionType {
 type ApplicationCommandDataOption struct {
 	Name    string                         `json:"name"`
 	Type    ApplicationCommandOptionType   `json:"type"`
-	Value   *interface{}                   `json:"value,omitempty"`
+	Value   interface{}                    `json:"value,omitempty"`
 	Options []ApplicationCommandDataOption `json:"options,omitempty"`
 	Focused *bool                          `json:"focused,omitempty"`
 }
@@ -169,7 +169,7 @@ type InteractionResponseData interface {
 	InteractionResponseType() InteractionResponseType
 }
 
-type InteractionMessageResponse struct{} // TODO
+type InteractionMessageResponse = MessageCreateParams
 
 func (InteractionMessageResponse) InteractionResponseType() InteractionResponseType {
 	return InteractionResponseTypeChannelMessageWithSource

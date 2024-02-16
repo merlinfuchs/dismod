@@ -10,7 +10,7 @@ type ApplicationCommand struct {
 	Description              string                     `json:"description"`
 	DescriptionLocalizations map[string]string          `json:"description_localizations,omitempty"`
 	Options                  []ApplicationCommandOption `json:"options,omitempty"`
-	DefaultMemberPermissions Nullable[string]           `json:"default_member_permission,omitempty"`
+	DefaultMemberPermissions Nullable[string]           `json:"default_member_permission"`
 	DMPermission             *bool                      `json:"dm_permission,omitempty"`
 	NSFW                     *bool                      `json:"nsfw,omitempty"`
 	Version                  Snowflake                  `json:"version"`
