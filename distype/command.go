@@ -62,3 +62,15 @@ type ApplicationCommandOptionChoice struct {
 	NameLocalizations map[string]string `json:"name_localizations,omitempty"`
 	Value             interface{}       `json:"value"`
 }
+
+type ApplicationCommandCreateRequest struct {
+	Type                     *ApplicationCommandType    `json:"type,omitempty"`
+	Name                     string                     `json:"name"`
+	NameLocalizations        map[string]string          `json:"name_localizations,omitempty"`
+	Description              string                     `json:"description"`
+	DescriptionLocalizations map[string]string          `json:"description_localizations,omitempty"`
+	Options                  []ApplicationCommandOption `json:"options,omitempty"`
+	DefaultMemberPermissions Nullable[string]           `json:"default_member_permission"`
+	DMPermission             *bool                      `json:"dm_permission,omitempty"`
+	NSFW                     *bool                      `json:"nsfw,omitempty"`
+}
