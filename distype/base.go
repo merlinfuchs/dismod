@@ -66,3 +66,7 @@ func (t *UnixTimestamp) UnmarshalJSON(data []byte) error {
 	*t = UnixTimestamp(time.Unix(i, 0))
 	return nil
 }
+
+func Optional[T any](v T) *T {
+	return &v
+}
