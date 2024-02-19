@@ -152,6 +152,51 @@ type InteractionResponse struct {
 	Data InteractionResponseData `json:"data,omitempty"` // TODO: implement unmarshaler
 }
 
+func (i *InteractionResponse) UnmarshalJSON(raw []byte) error {
+	var tmp struct {
+		Type InteractionResponseType `json:"type"`
+		Data json.RawMessage         `json:"data,omitempty"`
+	}
+	err := json.Unmarshal(raw, &tmp)
+	if err != nil {
+		return err
+	}
+
+	i.Type = tmp.Type
+
+	switch tmp.Type {
+	case InteractionResponseTypeChannelMessageWithSource | InteractionResponseTypeDeferredChannelMessageWithSource:
+		v := InteractionMessageCreateResponse{}
+		err = json.Unmarshal(tmp.Data, &v)
+		if err != nil {
+			return err
+		}
+		i.Data = v
+	case InteractionResponseTypeUpdateMessage | InteractionResponseTypeDeferredUpdateMessage:
+		v := InteractionMessageUpdateResponse{}
+		err = json.Unmarshal(tmp.Data, &v)
+		if err != nil {
+			return err
+		}
+		i.Data = v
+	case InteractionResponseTypeApplicationCommandAutocompleteResult:
+		v := InteractionAutocompleteResponse{}
+		err = json.Unmarshal(tmp.Data, &v)
+		if err != nil {
+			return err
+		}
+		i.Data = v
+	case InteractionResponseTypeModal:
+		v := InteractionModalResponse{}
+		err = json.Unmarshal(tmp.Data, &v)
+		if err != nil {
+			return err
+		}
+		i.Data = v
+	}
+	return nil
+}
+
 type InteractionResponseType int
 
 const (
@@ -169,10 +214,16 @@ type InteractionResponseData interface {
 	InteractionResponseType() InteractionResponseType
 }
 
-type InteractionMessageResponse = MessageCreateParams
+type InteractionMessageCreateResponse = MessageCreateParams
 
-func (InteractionMessageResponse) InteractionResponseType() InteractionResponseType {
+func (InteractionMessageCreateResponse) InteractionResponseType() InteractionResponseType {
 	return InteractionResponseTypeChannelMessageWithSource
+}
+
+type InteractionMessageUpdateResponse = MessageEditParams
+
+func (InteractionMessageUpdateResponse) InteractionResponseType() InteractionResponseType {
+	return InteractionResponseTypeUpdateMessage
 }
 
 type InteractionAutocompleteResponse struct{} // TODO
