@@ -85,7 +85,10 @@ type RoleDeleteRequest struct {
 
 type RoleDeleteResponse struct{}
 
-type RolePositionsModifyRequest = []RolePositionsModifyEntry
+type RolePositionsModifyRequest struct {
+	GuildID Snowflake                  `json:"guild_id"`
+	Entries []RolePositionsModifyEntry `json:"entries"`
+}
 
 type RolePositionsModifyEntry struct {
 	ID       Snowflake `json:"id"`

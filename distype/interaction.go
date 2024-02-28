@@ -149,7 +149,7 @@ type ResolvedData struct {
 
 type InteractionResponse struct {
 	Type InteractionResponseType `json:"type"`
-	Data InteractionResponseData `json:"data,omitempty"` // TODO: implement unmarshaler
+	Data InteractionResponseData `json:"data,omitempty"`
 }
 
 func (i *InteractionResponse) UnmarshalJSON(raw []byte) error {

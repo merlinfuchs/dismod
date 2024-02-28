@@ -89,6 +89,8 @@ func UnmarshalEvent(t EventType, raw []byte) (interface{}, error) {
 		return decodeT[*HelloData](raw)
 	case EventTypeReady:
 		return decodeT[*ReadyEvent](raw)
+	case EventTypeResumed:
+		return &ResumedEvent{}, nil
 	case EventTypeApplicationCommandPermissionsUpdate:
 		return decodeT[*ApplicationCommandPermissionsUpdateEvent](raw)
 	case EventTypeAutoModerationRuleCreate:
@@ -231,3 +233,5 @@ type ReadyEvent struct {
 	Shard            [2]int             `json:"shard"`
 	Application      Application        `json:"application"`
 }
+
+type ResumedEvent struct{}

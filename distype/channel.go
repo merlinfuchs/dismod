@@ -174,7 +174,9 @@ type ChannelGetRequest struct {
 
 type ChannelGetResponse = Channel
 
-type ChannelModifyRequest struct{} // TODO
+type ChannelModifyRequest struct {
+	ChannelID Snowflake `json:"channel_id"`
+} // TODO
 
 type ChannelModifyResponse = Channel
 
@@ -317,11 +319,16 @@ type GuildChannelListRequest struct {
 
 type GuildChannelListResponse = []Channel
 
-type GuildChannelCreateRequest struct{} // TODO
+type GuildChannelCreateRequest struct {
+	GuildID Snowflake `json:"guild_id"`
+} // TODO
 
 type GuildChannelCreateResponse = Channel
 
-type GuildChannelModifyPositionsRequest = []GuildChannelModifyPositionsEntry
+type GuildChannelModifyPositionsRequest struct {
+	GuildID Snowflake                          `json:"guild_id"`
+	Entries []GuildChannelModifyPositionsEntry `json:"entries"`
+}
 
 type GuildChannelModifyPositionsEntry struct {
 	ID              Snowflake  `json:"id"`

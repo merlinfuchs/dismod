@@ -458,7 +458,7 @@ type MessageBulkDeleteResponse struct{}
 type MessageReactionListRequest struct {
 	ChannelID Snowflake  `json:"channel_id"`
 	MessageID Snowflake  `json:"message_id"`
-	Emoji     *string    `json:"emoji,omitempty"`
+	Emoji     string     `json:"emoji"`
 	After     *Snowflake `json:"after,omitempty"`
 	Limit     *int       `json:"limit,omitempty"`
 }
