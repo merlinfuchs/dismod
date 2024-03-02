@@ -28,7 +28,7 @@ type Channel struct {
 	MemberCount                   *int                  `json:"member_count,omitempty"`
 	ThreadMetadata                *ThreadMetadata       `json:"thread_metadata,omitempty"`
 	Member                        *ThreadMember         `json:"member,omitempty"`
-	DefaultAutoArchive            *int                  `json:"default_auto_archive_duration,omitempty"`
+	DefaultAutoArchiveDuration    *int                  `json:"default_auto_archive_duration,omitempty"`
 	Permissions                   *Permissions          `json:"permissions,omitempty"`
 	Flags                         *ChannelFlags         `json:"flags,omitempty"`
 	TotalMessagesSent             *int                  `json:"total_message_sent,omitempty"`
@@ -175,8 +175,27 @@ type ChannelGetRequest struct {
 type ChannelGetResponse = Channel
 
 type ChannelModifyRequest struct {
-	ChannelID Snowflake `json:"channel_id"`
-} // TODO
+	ChannelID                     Snowflake             `json:"channel_id"`
+	Name                          *string               `json:"name,omitempty"`
+	Type                          *ChannelType          `json:"type,omitempty"`
+	Position                      *int                  `json:"position,omitempty"`
+	Topic                         *string               `json:"topic,omitempty"`
+	NSFW                          *bool                 `json:"nsfw,omitempty"`
+	RateLimitPerUser              *int                  `json:"rate_limit_per_user,omitempty"`
+	Bitrate                       *int                  `json:"bitrate,omitempty"`
+	UserLimit                     *int                  `json:"user_limit,omitempty"`
+	PermissionOverwrites          []PermissionOverwrite `json:"permission_overwrites,omitempty"`
+	ParentID                      *Snowflake            `json:"parent_id,omitempty"`
+	RTCRegion                     *string               `json:"rtc_region,omitempty"`
+	VideoQualityMode              *VideoQualityMode     `json:"video_quality_mode,omitempty"`
+	DefaultAutoArchiveDuration    *int                  `json:"default_auto_archive_duration,omitempty"`
+	Flags                         *ChannelFlags         `json:"flags,omitempty"`
+	AvailableTags                 []ForumTag            `json:"available_tags,omitempty"`
+	DefaultReactionEmoji          *DefaultReaction      `json:"default_reaction_emoji,omitempty"`
+	DefaultThreadRateLimitPerUser *int                  `json:"default_thread_rate_limit_per_user,omitempty"`
+	DefaultSortOrder              *SortOrderType        `json:"default_sort_order,omitempty"`
+	DefaultForumLayout            *ForumLayoutType      `json:"default_forum_layout,omitempty"`
+}
 
 type ChannelModifyResponse = Channel
 
@@ -320,8 +339,26 @@ type GuildChannelListRequest struct {
 type GuildChannelListResponse = []Channel
 
 type GuildChannelCreateRequest struct {
-	GuildID Snowflake `json:"guild_id"`
-} // TODO
+	GuildID                       Snowflake             `json:"guild_id"`
+	Name                          string                `json:"name"`
+	Type                          ChannelType           `json:"type"`
+	Topic                         *string               `json:"topic,omitempty"`
+	Bitrate                       *int                  `json:"bitrate,omitempty"`
+	UserLimit                     *int                  `json:"user_limit,omitempty"`
+	RateLimitPerUser              *int                  `json:"rate_limit_per_user,omitempty"`
+	Position                      *int                  `json:"position,omitempty"`
+	PermissionOverwrites          []PermissionOverwrite `json:"permission_overwrites,omitempty"`
+	ParentID                      *Snowflake            `json:"parent_id,omitempty"`
+	NSFW                          *bool                 `json:"nsfw,omitempty"`
+	RTCRegion                     *string               `json:"rtc_region,omitempty"`
+	VideoQualityMode              *VideoQualityMode     `json:"video_quality_mode,omitempty"`
+	DefaultAutoArchiveDuration    *int                  `json:"default_auto_archive_duration,omitempty"`
+	DefaultReactionEmoji          *DefaultReaction      `json:"default_reaction_emoji,omitempty"`
+	AvailableTags                 []ForumTag            `json:"available_tags,omitempty"`
+	DefaultSortOrder              *SortOrderType        `json:"default_sort_order,omitempty"`
+	DefaultForumLayout            *ForumLayoutType      `json:"default_forum_layout,omitempty"`
+	DefaultThreadRateLimitPerUser *int                  `json:"default_thread_rate_limit_per_user,omitempty"`
+}
 
 type GuildChannelCreateResponse = Channel
 
