@@ -10,3 +10,11 @@ func decodeT[T any](raw []byte) (T, error) {
 	}
 	return data, nil
 }
+
+func Optional[T any](v T) *T {
+	return &v
+}
+
+func NullString(s string, valid bool) Nullable[string] {
+	return Nullable[string]{Valid: valid, Value: s}
+}
