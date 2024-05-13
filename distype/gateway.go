@@ -129,9 +129,9 @@ type VoiceStateUpdataData struct {
 type GatewayBotGetRequest struct{}
 
 type GatewayBotGetResponse struct {
-	URL    string `json:"url"`
-	Shards int    `json:"shards"`
-	SessionStartLimit
+	URL               string            `json:"url"`
+	Shards            int               `json:"shards"`
+	SessionStartLimit SessionStartLimit `json:"session_start_limit"`
 }
 
 type SessionStartLimit struct {
