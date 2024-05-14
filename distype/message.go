@@ -420,8 +420,8 @@ type MessageGetRequest struct {
 type MessageGetResponse = Message
 
 type MessageCreateRequest struct {
-	ChannelID Snowflake `json:"channel_id"`
-	MessageCreateParams
+	ChannelID           Snowflake `json:"channel_id"`
+	MessageCreateParams `tstype:",extends"`
 }
 
 type MessageCreateResponse = Message
@@ -434,9 +434,9 @@ type MessageCrosspostRequest struct {
 type MessageCrosspostResponse = Message
 
 type MessageEditRequest struct {
-	ChannelID Snowflake `json:"channel_id"`
-	MessageID Snowflake `json:"message_id"`
-	MessageEditParams
+	ChannelID         Snowflake `json:"channel_id"`
+	MessageID         Snowflake `json:"message_id"`
+	MessageEditParams `tstype:",extends"`
 }
 
 type MessageEditResponse = Message

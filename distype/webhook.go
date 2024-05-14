@@ -94,11 +94,11 @@ type WebhookDeleteWithTokenRequest struct {
 type WebhookDeleteWithTokenResponse struct{}
 
 type WebhookExecuteRequest struct {
-	WebhookID    Snowflake  `json:"webhook_id"`
-	WebhookToken string     `json:"webhook_token"`
-	Wait         *bool      `json:"wait,omitempty"`
-	ThreadID     *Snowflake `json:"thread_id,omitempty"`
-	MessageCreateParams
+	WebhookID           Snowflake  `json:"webhook_id"`
+	WebhookToken        string     `json:"webhook_token"`
+	Wait                *bool      `json:"wait,omitempty"`
+	ThreadID            *Snowflake `json:"thread_id,omitempty"`
+	MessageCreateParams `tstype:",extends"`
 }
 
 type WebhookExecuteResponse = *Message
@@ -112,10 +112,10 @@ type WebhookMessageGetRequest struct {
 type WebhookMessageGetResponse = Message
 
 type WebhookMessageEditRequest struct {
-	WebhookID    Snowflake `json:"webhook_id"`
-	WebhookToken string    `json:"webhook_token"`
-	MessageID    Snowflake `json:"message_id"`
-	MessageEditParams
+	WebhookID         Snowflake `json:"webhook_id"`
+	WebhookToken      string    `json:"webhook_token"`
+	MessageID         Snowflake `json:"message_id"`
+	MessageEditParams `tstype:",extends"`
 }
 
 type WebhookMessageEditResponse = Message

@@ -256,9 +256,9 @@ type InteractionResponseGetRequest struct {
 type InteractionResponseGetResponse = Message
 
 type InteractionResponseEditRequest struct {
-	ApplicationID    Snowflake `json:"application_id"`
-	InteractionToken string    `json:"interaction_token"`
-	MessageEditParams
+	ApplicationID     Snowflake `json:"application_id"`
+	InteractionToken  string    `json:"interaction_token"`
+	MessageEditParams `tstype:",extends"`
 }
 
 type InteractionResponseEditResponse = Message
@@ -271,9 +271,9 @@ type InteractionResponseDeleteRequest struct {
 type InteractionResponseDeleteResponse struct{}
 
 type InteractionFollowupCreateRequest struct {
-	ApplicationID    Snowflake `json:"application_id"`
-	InteractionToken string    `json:"interaction_token"`
-	MessageCreateParams
+	ApplicationID       Snowflake `json:"application_id"`
+	InteractionToken    string    `json:"interaction_token"`
+	MessageCreateParams `tstype:",extends"`
 }
 
 type InteractionFollowupCreateResponse = Message
@@ -287,10 +287,10 @@ type InteractionFollowupGetRequest struct {
 type InteractionFollowupGetResponse = Message
 
 type InteractionFollowupEditRequest struct {
-	ApplicationID    Snowflake `json:"application_id"`
-	InteractionToken string    `json:"interaction_token"`
-	MessageID        Snowflake `json:"message_id"`
-	MessageEditParams
+	ApplicationID     Snowflake `json:"application_id"`
+	InteractionToken  string    `json:"interaction_token"`
+	MessageID         Snowflake `json:"message_id"`
+	MessageEditParams `tstype:",extends"`
 }
 
 type InteractionFollowupEditResponse = Message
